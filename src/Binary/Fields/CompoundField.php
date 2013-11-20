@@ -32,7 +32,8 @@ class CompoundField implements FieldInterface
     }
 
     /**
-     * @param AbstractField $field The field to add to the compound field.
+     * @param string $fieldName The name of the field to add.
+     * @param FieldInterface $field The field to add to the compound field.
      */
     public function addField($fieldName, FieldInterface $field)
     {

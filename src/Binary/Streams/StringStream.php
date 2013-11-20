@@ -26,7 +26,7 @@ class StringStream implements StreamInterface
     protected $string = '';
 
     /**
-     * @param $string The string to encapsulate.
+     * @param string $string The string to encapsulate.
      */
     public function __construct($string)
     {

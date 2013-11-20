@@ -26,7 +26,7 @@ class FileStream implements StreamInterface
     protected $handle = null;
 
     /**
-     * @param $handle The handle to encapsulate.
+     * @param resource $handle The handle to encapsulate.
      */
     public function __construct($handle)
     {

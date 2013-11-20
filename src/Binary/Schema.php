@@ -27,7 +27,7 @@ class Schema
      * Initialise a new schema with a definition in the form of an array of fields.
      *
      * @param array $definition The field set to initialise the schema with.
-     * @param Fields\CompoundField $parent The CompoundField, if any, to populate with the schema.
+     * @return $this
      */
     public function initWithSchemaDefinition(array $definition)
     {
@@ -86,7 +86,8 @@ class Schema
     }
 
     /**
-     * @param AbstractField $field The field to add to the schema.
+     * @param string $fieldName The name of the field to add to the schema.
+     * @param Fields\FieldInterface $field The field to add to the schema.
      * @return $this
      */
     public function addField($fieldName, Fields\FieldInterface $field)
@@ -96,7 +97,7 @@ class Schema
     }
 
     /**
-     * @param $stream StreamInterface The stream to parse.
+     * @param $stream Streams\StreamInterface The stream to parse.
      * @return array
      */
     public function readStream(Streams\StreamInterface $stream)
