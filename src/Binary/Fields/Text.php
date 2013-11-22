@@ -1,8 +1,9 @@
 <?php
 /**
- * ILDA (International Laser Display Association) Frame Handling in PHP.
+ * php-binary
+ * A PHP library for parsing structured binary streams
  *
- * @package  php-ilda
+ * @package  php-binary
  * @author Damien Walsh <me@damow.net>
  */
 namespace Binary\Fields;
