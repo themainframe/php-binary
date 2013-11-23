@@ -8,8 +8,6 @@
  */
 namespace Binary;
 
-use Binary\Fields\CompoundField;
-
 /**
  * Schema
  * Represents the internal structure of a binary field file.
@@ -43,9 +41,9 @@ class Schema
      *
      * @param string $fieldName The name of the field to add.
      * @param array $definition The definition (from JSON) of the field to add.
-     * @param CompoundField $targetField The target compound field to add the new field to.
+     * @param Fields\CompoundField $targetField The target compound field to add the new field to.
      */
-    private function addDefinedField($fieldName, array $definition, CompoundField $targetField = null)
+    private function addDefinedField($fieldName, array $definition, Fields\CompoundField $targetField = null)
     {
         $className = __NAMESPACE__ . '\\Fields\\' . $definition['_type'];
         $newField = new $className;
@@ -67,7 +65,7 @@ class Schema
         }
 
         // Are we adding a compound field?
-        if (is_a($newField, '\\ILDA\\DTF\\Fields\\CompoundField')) {
+        if (is_a($newField, __NAMESPACE__ . '\\CompoundField')) {
             if (isset($definition['_fields'])) {
                 // Adding a compound field that has some subfields
                 foreach ($definition['_fields'] as $subFieldName => $subFieldDefinition) {
