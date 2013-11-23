@@ -47,7 +47,7 @@ class Schema
      */
     private function addDefinedField($fieldName, array $definition, CompoundField $targetField = null)
     {
-        $className = '\\ILDA\\DTF\\Fields\\' . $definition['_type'];
+        $className = __NAMESPACE__ . '\\Fields\\' . $definition['_type'];
         $newField = new $className;
 
         // Set the properties on the field
