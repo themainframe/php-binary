@@ -8,8 +8,8 @@
  */
 namespace Binary\Fields;
 
-use Binary\Fields;
 use Binary\Streams\StreamInterface;
+use Binary\Result;
 
 /**
  * CompoundField
@@ -33,35 +33,34 @@ class CompoundField implements FieldInterface
     }
 
     /**
-     * @param string $fieldName The name of the field to add.
      * @param FieldInterface $field The field to add to the compound field.
      */
-    public function addField($fieldName, FieldInterface $field)
+    public function addField(FieldInterface $field)
     {
-        $this->fields[$fieldName] = $field;
+        $this->fields[] = $field;
     }
 
     /**
      * @param StreamInterface $stream The stream to read fields from.
+     * @param Result $result The result to add the value to.
      * @return array
      */
-    public function read(StreamInterface $stream)
+    public function read(StreamInterface $stream, Result $result)
     {
-        $readFields = array();
-        $count = isset($this->count) ? $this->count : 1;
+        $result->push($this->name);
+        $count = isset($this->count) ? $this->count->get() : 1;
 
         // Read this compound field $count times
         for ($iteration = 0; $iteration < $count; $iteration ++) {
+            $result->push($iteration);
 
-            $subFields = array();
-
-            foreach ($this->fields as $fieldName => $field) {
-                $subFields[$fieldName] = $field->read($stream);
+            foreach ($this->fields as $field) {
+                $field->read($stream, $result);
             }
 
-            $readFields[] = $subFields;
+            $result->pop();
         }
 
-        return $readFields;
+        $result->pop();
     }
 }

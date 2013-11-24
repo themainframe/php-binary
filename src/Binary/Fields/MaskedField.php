@@ -8,7 +8,7 @@
  */
 namespace Binary\Fields;
 
-use Binary\Fields;
+use Binary;
 use Binary\Streams\StreamInterface;
 
 /**
@@ -17,23 +17,26 @@ use Binary\Streams\StreamInterface;
  *
  * @since 1.0
  */
-class MaskedField implements FieldInterface
+class MaskedField extends Field
 {
-    public function read(StreamInterface $stream)
+    public function read(StreamInterface $stream, Result $result)
     {
+        $result->push($this->name);
+
         // Read the bytes into memory
         $byte = $stream->readByte();
-        $bitFields = array();
         $bitPosition = 0;
 
         foreach ($this->structure as $bitFieldName => $bitFieldSize) {
 
-            $bitFields[$bitFieldName] = (ord($byte) >> $bitPosition) &
+            $value = (ord($byte) >> $bitPosition) &
                 bindec(str_repeat('1', $bitFieldSize));
+
+            $result->addValue($bitFieldName, $value);
 
             $bitPosition += $bitFieldSize;
         }
 
-        return $bitFields;
+        $result->pop();
     }
 }

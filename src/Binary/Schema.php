@@ -8,6 +8,9 @@
  */
 namespace Binary;
 
+use Binary\Fields\Properties\Property;
+use Binary\Fields\Properties\Backreference;
+
 /**
  * Schema
  * Represents the internal structure of a binary field file.
@@ -56,16 +59,22 @@ class Schema
                 continue;
             }
 
-            if ($propertyName[0] === '@') {
+            if ($propertyValue[0] === '@') {
                 // Property is referencing an already-parsed field value
-
+                $backreference = new Backreference();
+                $backreference->setPath(substr($propertyValue, 1));
+                $newField->{$propertyName} = $backreference;
+            } else {
+                $newField->{$propertyName} = new Property($propertyValue);
             }
 
-            $newField->{$propertyName} = $propertyValue;
         }
 
+        // Add the field name
+        $newField->name = $fieldName;
+
         // Are we adding a compound field?
-        if (is_a($newField, __NAMESPACE__ . '\\CompoundField')) {
+        if (is_a($newField, __NAMESPACE__ . '\\Fields\\CompoundField')) {
             if (isset($definition['_fields'])) {
                 // Adding a compound field that has some subfields
                 foreach ($definition['_fields'] as $subFieldName => $subFieldDefinition) {
@@ -76,36 +85,35 @@ class Schema
 
         if ($targetField) {
             // Adding the field to an existing compound field
-            $targetField->addField($fieldName, $newField);
+            $targetField->addField($newField);
         } else {
             // Adding the field to this schema
-            $this->addField($fieldName, $newField);
+            $this->addField($newField);
         }
     }
 
     /**
-     * @param string $fieldName The name of the field to add to the schema.
      * @param Fields\FieldInterface $field The field to add to the schema.
      * @return $this
      */
-    public function addField($fieldName, Fields\FieldInterface $field)
+    public function addField(Fields\FieldInterface $field)
     {
-        $this->fields[$fieldName] = $field;
+        $this->fields[] = $field;
         return $this;
     }
 
     /**
      * @param $stream Streams\StreamInterface The stream to parse.
-     * @return array
+     * @return Result
      */
     public function readStream(Streams\StreamInterface $stream)
     {
-        $readFields = array();
+        $result = new Result();
 
-        foreach ($this->fields as $fieldName => $field) {
-            $readFields[$fieldName] = $field->read($stream);
+        foreach ($this->fields as $field) {
+            $field->read($stream, $result);
         }
 
-        return $readFields;
+        return $result;
     }
 }

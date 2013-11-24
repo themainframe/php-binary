@@ -9,11 +9,15 @@
 namespace Binary\Fields;
 
 /**
- * FieldInterface
- * Specifies the interface for deriving values from fields.
+ * Field
+ * Abstract.
  *
  * @since 1.0
  */
-interface FieldInterface
+abstract class Field implements FieldInterface
 {
+    /**
+     * @public string $name The name of the field.
+     */
+    public $name = '';
 }

@@ -8,8 +8,9 @@
  */
 namespace Binary\Fields;
 
-use Binary\Fields;
+use Binary\Result;
 use Binary\Streams\StreamInterface;
+
 
 /**
  * UnsignedInteger
@@ -17,18 +18,17 @@ use Binary\Streams\StreamInterface;
  *
  * @since 1.0
  */
-class UnsignedInteger implements FieldInterface
+class UnsignedInteger extends Field
 {
-    public function read(StreamInterface $stream)
+    public function read(StreamInterface $stream, Result $result)
     {
-        $data = $stream->read($this->size);
+        $data = $stream->read($this->size->get($result));
 
         if (strlen($data) < 2) {
             $data = str_pad($data, 2, "\0", STR_PAD_LEFT);
         }
 
         $unpacked = unpack('n', $data);
-
-        return intval($unpacked[1]);
+        $result->addValue($this->name, $unpacked[1]);
     }
 }

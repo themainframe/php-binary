@@ -16,11 +16,11 @@ use Binary\Streams\StreamInterface;
  *
  * @since 1.0
  */
-class Text implements FieldInterface
+class Text extends Field
 {
-    public function read(StreamInterface $stream)
+    public function read(StreamInterface $stream, \Binary\Result $result)
     {
-        $bytes = $stream->read($this->size);
-        return strval($bytes);
+        $bytes = $stream->read($this->size->get($result));
+        $result->addValue($this->name, strval($bytes));
     }
 }
