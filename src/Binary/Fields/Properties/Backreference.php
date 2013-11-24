@@ -10,7 +10,7 @@ namespace Binary\Fields\Properties;
 use Binary\Result;
 
 /**
- * Absolute
+ * Backreference
  * Represents a backreference to a previously-read value
  *
  * @since 1.0
