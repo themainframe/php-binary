@@ -26,7 +26,7 @@ This format can be parsed as follows:
                "size": 4
            },
            "somebyte": {
-               "_type": "UnsignedInt",
+               "_type": "UnsignedInteger",
                "size": 1
            },
            "somefields": {
@@ -38,14 +38,14 @@ This format can be parsed as follows:
                        "size": 2
                    },
                    "foobyte": {
-                       "_type": "UnsignedInt",
+                       "_type": "UnsignedInteger",
                        "size": 1
                    }
                }
            }
         }
 
-    ');
+    ', true));
 
 ### Parsing a Stream
 
@@ -54,23 +54,23 @@ You can have php-binary parse a generic stream of bytes and output fields as an 
     $stream = new Binary\Streams\StringStream("FOOO\x03LOLLOMLON");
     $result = $schema->readStream($stream);
 
-The resulting associative array (shown here as JSON for clarity) in `$result` would contain:
+The resulting associative array (shown here as JSON for clarity) in `$result->data` would contain:
 
     {
         "sometext": "FOOO",
-        "somebyte": 68,
+        "somebyte": 3,
         "somefields": [
             {
                 "footext": "LO",
                 "foobyte": 76
-            },   
+            },
             {
                 "footext": "LO",
                 "foobyte": 77
-            },   
+            },
             {
                 "footext": "LO",
                 "foobyte": 78
             }
         ]
-    } 
+    }
