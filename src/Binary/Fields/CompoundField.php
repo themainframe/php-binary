@@ -48,7 +48,7 @@ class CompoundField implements FieldInterface
     public function read(StreamInterface $stream, Result $result)
     {
         $result->push($this->name);
-        $count = isset($this->count) ? $this->count->get() : 1;
+        $count = isset($this->count) ? $this->count->get($result) : 1;
 
         // Read this compound field $count times
         for ($iteration = 0; $iteration < $count; $iteration ++) {

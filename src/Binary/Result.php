@@ -16,7 +16,7 @@ namespace Binary;
  */
 class Result
 {
-    public $values = array();
+    public $data = array();
     private $currentPath = array();
 
     public function push($level)
@@ -31,7 +31,7 @@ class Result
 
     public function addValue($name, $value)
     {
-        $child = & $this->values;
+        $child = & $this->data;
 
         foreach ($this->currentPath as $part) {
             if (isset($child[$part])) {
@@ -47,7 +47,7 @@ class Result
 
     public function findValueByPath($path)
     {
-        $child = $this->values;
+        $child = $this->data;
 
         foreach ($path as $part) {
             if (isset($child[$part])) {
@@ -63,7 +63,7 @@ class Result
     public function setValueByPath($path, $value)
     {
         $endPart = array_pop($path);
-        $child = & $this->values;
+        $child = & $this->data;
 
         foreach ($path as $part) {
             if (isset($child[$part])) {
