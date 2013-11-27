@@ -10,7 +10,7 @@ Here is an example binary format:
 
  1. **4 bytes** of text.
  2. **1 byte** unsigned integer.
- 3. A repeating field of **8 bytes** of text followed by a **1 byte** unsigned integer, **3** times.
+ 3. A field of **2 bytes** of text followed by a **1 byte** unsigned integer; repeated *n* times, where *n* is a backreference to the byte described in point **2**.
 
 
 ### Writing a Parser Schema
@@ -31,7 +31,7 @@ This format can be parsed as follows:
            },
            "somefields": {
                "_type": "CompoundField",
-               "count": 3,
+               "count": "@somebyte",
                "_fields": {
                    "footext": {
                        "_type": "Text",
@@ -51,7 +51,7 @@ This format can be parsed as follows:
 
 You can have php-binary parse a generic stream of bytes and output fields as an associative array matching your schema definition.
 
-    $stream = new Binary\Streams\StringStream("FOOODLOLLOMLON");
+    $stream = new Binary\Streams\StringStream("FOOO\x03LOLLOMLON");
     $result = $schema->readStream($stream);
 
 The resulting associative array (shown here as JSON for clarity) in `$result` would contain:
