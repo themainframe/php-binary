@@ -62,6 +62,36 @@ class StringStream implements StreamInterface
     }
 
     /**
+     * Writes a single byte to the stream and advances the internal position by 1.
+     * Returns the new position as an integer on success, or false on failure.
+     *
+     * @param string $byte The byte to write to the stream.
+     * @return false|int
+     */
+    public function writeByte($byte)
+    {
+        $this->position ++;
+        $this->string .= $byte;
+
+        return $this->position;
+    }
+
+    /**
+     * Writes a number of bytes to the stream and advances the internal
+     * position by the appropriate amount.
+     *
+     * @param string $bytes The bytes to write to the stream.
+     * @return string
+     */
+    public function write($bytes)
+    {
+        $this->position += strlen($bytes);
+        $this->string .= $bytes;
+
+        return $bytes;
+    }
+
+    /**
      * Gets the current position of the internal stream cursor.
      *
      * @return int
