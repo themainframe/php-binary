@@ -104,16 +104,23 @@ class Schema
 
     /**
      * @param $stream Streams\StreamInterface The stream to parse.
-     * @return Result
+     * @return DataSet
      */
     public function readStream(Streams\StreamInterface $stream)
     {
-        $result = new Result();
+        $result = new DataSet();
 
         foreach ($this->fields as $field) {
             $field->read($stream, $result);
         }
 
         return $result;
+    }
+
+    public function writeStream(Streams\StreamInterface $stream, DataSet $result)
+    {
+        foreach ($this->fields as $field) {
+            $field->write($stream, $result);
+        }
     }
 }

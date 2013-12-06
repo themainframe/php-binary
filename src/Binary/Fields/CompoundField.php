@@ -9,7 +9,7 @@
 namespace Binary\Fields;
 
 use Binary\Streams\StreamInterface;
-use Binary\Result;
+use Binary\DataSet;
 
 /**
  * CompoundField
@@ -42,10 +42,10 @@ class CompoundField implements FieldInterface
 
     /**
      * @param StreamInterface $stream The stream to read fields from.
-     * @param Result $result The result to add the value to.
+     * @param DataSet $result The result to add the value to.
      * @return array
      */
-    public function read(StreamInterface $stream, Result $result)
+    public function read(StreamInterface $stream, DataSet $result)
     {
         $result->push($this->name);
         $count = isset($this->count) ? $this->count->get($result) : 1;

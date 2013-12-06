@@ -7,7 +7,7 @@
  * @author Damien Walsh <me@damow.net>
  */
 namespace Binary\Fields\Properties;
-use Binary\Result;
+use Binary\DataSet;
 
 /**
  * Backreference
@@ -24,7 +24,7 @@ class Backreference extends Property
 
     }
 
-    public function get(Result $result)
+    public function get(DataSet $result)
     {
         $pathParts = explode('/', $this->path);
         return $result->findValueByPath($pathParts);

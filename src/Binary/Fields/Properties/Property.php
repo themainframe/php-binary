@@ -7,7 +7,7 @@
  * @author Damien Walsh <me@damow.net>
  */
 namespace Binary\Fields\Properties;
-use Binary\Result;
+use Binary\DataSet;
 
 /**
  * Property
@@ -27,7 +27,7 @@ class Property implements PropertyInterface
         $this->value = $value;
     }
 
-    public function get(Result $result)
+    public function get(DataSet $result)
     {
         return $this->value;
     }

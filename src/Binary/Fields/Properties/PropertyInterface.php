@@ -7,7 +7,7 @@
  * @author Damien Walsh <me@damow.net>
  */
 namespace Binary\Fields\Properties;
-use Binary\Result;
+use Binary\DataSet;
 
 /**
  * PropertyInterface
@@ -17,5 +17,5 @@ use Binary\Result;
  */
 interface PropertyInterface
 {
-    public function get(Result $result);
+    public function get(DataSet $result);
 }

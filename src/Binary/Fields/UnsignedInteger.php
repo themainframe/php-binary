@@ -8,7 +8,7 @@
  */
 namespace Binary\Fields;
 
-use Binary\Result;
+use Binary\DataSet;
 use Binary\Streams\StreamInterface;
 
 
@@ -20,7 +20,7 @@ use Binary\Streams\StreamInterface;
  */
 class UnsignedInteger extends Field
 {
-    public function read(StreamInterface $stream, Result $result)
+    public function read(StreamInterface $stream, DataSet $result)
     {
         $data = $stream->read($this->size->get($result));
 

@@ -18,7 +18,7 @@ use Binary\Streams\StreamInterface;
  */
 class Text extends Field
 {
-    public function read(StreamInterface $stream, \Binary\Result $result)
+    public function read(StreamInterface $stream, \Binary\DataSet $result)
     {
         $bytes = $stream->read($this->size->get($result));
         $result->addValue($this->name, strval($bytes));

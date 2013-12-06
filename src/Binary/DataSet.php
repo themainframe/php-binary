@@ -9,12 +9,12 @@
 namespace Binary;
 
 /**
- * Result
- * Represents a result produced by parsing a schema.
+ * DataSet
+ * Represents a set of data arranged into a heirarchy
  *
  * @since 1.0
  */
-class Result
+class DataSet
 {
     public $data = array();
     private $currentPath = array();
