@@ -13,8 +13,8 @@
         "psr/log": "dev-master"
     },
     "autoload": {
-        "psr-0": {
-            "Binary": "src/"
+        "psr-4": {
+            "Binary\\": "src/Binary/"
         }
     }
 }
