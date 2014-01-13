@@ -30,7 +30,7 @@ This format can be parsed as follows. In this example, the schema is described u
                "size": 1
            },
            "somefields": {
-               "_type": "CompoundField",
+               "_type": "Compound",
                "count": "@somebyte",
                "_fields": {
                    "footext": {
