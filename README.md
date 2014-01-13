@@ -15,7 +15,7 @@ Here is an example binary format:
 
 ### Writing a Parser Schema
 
-This format can be parsed as follows:
+This format can be parsed as follows. In this example, the schema is described using JSON for clarity, though in practise any array may be used.
 
     $schema = new Binary\Schema;
     $schema->initWithSchemaDefinition(json_decode('
