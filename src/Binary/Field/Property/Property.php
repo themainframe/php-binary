@@ -6,12 +6,12 @@
  * @package  php-binary
  * @author Damien Walsh <me@damow.net>
  */
-namespace Binary\Fields\Properties;
+namespace Binary\Field\Property;
+
 use Binary\DataSet;
 
 /**
  * Property
- * Abstract
  *
  * @since 1.0
  */

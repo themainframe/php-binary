@@ -6,9 +6,10 @@
  * @package  php-binary
  * @author Damien Walsh <me@damow.net>
  */
-namespace Binary\Fields;
+namespace Binary\Field;
 
 use Binary;
+use Binary\DataSet;
 use Binary\Streams\StreamInterface;
 
 /**
@@ -17,9 +18,9 @@ use Binary\Streams\StreamInterface;
  *
  * @since 1.0
  */
-class MaskedField extends Field
+class Mask extends AbstractField
 {
-    public function read(StreamInterface $stream, Result $result)
+    public function read(StreamInterface $stream, DataSet $result)
     {
         $result->push($this->name);
 
@@ -38,5 +39,17 @@ class MaskedField extends Field
         }
 
         $result->pop();
+    }
+
+    /**
+     * @todo Implement
+     * @param StreamInterface $stream
+     * @param DataSet $result
+     * @return mixed|void
+     * @throws \Exception
+     */
+    public function write(StreamInterface $stream, DataSet $result)
+    {
+        throw new \Exception('Not implemented');
     }
 }

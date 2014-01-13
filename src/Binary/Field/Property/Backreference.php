@@ -6,7 +6,8 @@
  * @package  php-binary
  * @author Damien Walsh <me@damow.net>
  */
-namespace Binary\Fields\Properties;
+namespace Binary\Field\Property;
+
 use Binary\DataSet;
 
 /**
@@ -19,15 +20,22 @@ class Backreference extends Property
 {
     private $path = '';
 
+
     public function __construct()
     {
 
     }
 
+    /**
+     * Get the value for the property
+     *
+     * @param DataSet $result
+     * @return array|null
+     */
     public function get(DataSet $result)
     {
         $pathParts = explode('/', $this->path);
-        return $result->findValueByPath($pathParts);
+        return $result->getValueByPath($pathParts);
     }
 
     /**

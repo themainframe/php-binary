@@ -6,7 +6,7 @@
  * @package  php-binary
  * @author Damien Walsh <me@damow.net>
  */
-namespace Binary\Fields;
+namespace Binary\Field;
 
 use Binary\DataSet;
 use Binary\Streams\StreamInterface;
@@ -18,7 +18,7 @@ use Binary\Streams\StreamInterface;
  *
  * @since 1.0
  */
-class UnsignedInteger extends Field
+class UnsignedInteger extends AbstractField
 {
     public function read(StreamInterface $stream, DataSet $result)
     {
@@ -29,6 +29,20 @@ class UnsignedInteger extends Field
         }
 
         $unpacked = unpack('n', $data);
-        $result->addValue($this->name, $unpacked[1]);
+        $result->setValue($this->name, $unpacked[1]);
+    }
+
+    /**
+     * Read from a DataSet and write the translated data in to a
+     * StreamInterface-implementing object.
+     *
+     * @param StreamInterface $stream
+     * @param DataSet $result
+     * @return mixed
+     */
+    public function write(StreamInterface $stream, DataSet $result)
+    {
+        $bytes = $result->getValue($this->name);
+        $stream->write(pack('n', $bytes));
     }
 }

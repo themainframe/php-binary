@@ -8,8 +8,8 @@
  */
 namespace Binary;
 
-use Binary\Fields\Properties\Property;
-use Binary\Fields\Properties\Backreference;
+use Binary\Field\Property\Property;
+use Binary\Field\Property\Backreference;
 
 /**
  * Schema
@@ -30,7 +30,7 @@ class Schema
      * @param array $definition The field set to initialise the schema with.
      * @return $this
      */
-    public function initWithSchemaDefinition(array $definition)
+    public function initWithArray(array $definition)
     {
         foreach ($definition as $fieldName => $field) {
             $this->addDefinedField($fieldName, $field);
@@ -44,11 +44,11 @@ class Schema
      *
      * @param string $fieldName The name of the field to add.
      * @param array $definition The definition (from JSON) of the field to add.
-     * @param Fields\CompoundField $targetField The target compound field to add the new field to.
+     * @param Field\Compound $targetField The target compound field to add the new field to.
      */
-    private function addDefinedField($fieldName, array $definition, Fields\CompoundField $targetField = null)
+    private function addDefinedField($fieldName, array $definition, Field\Compound $targetField = null)
     {
-        $className = __NAMESPACE__ . '\\Fields\\' . $definition['_type'];
+        $className = __NAMESPACE__ . '\\Field\\' . $definition['_type'];
         $newField = new $className;
 
         // Set the properties on the field
@@ -93,10 +93,10 @@ class Schema
     }
 
     /**
-     * @param Fields\FieldInterface $field The field to add to the schema.
+     * @param Field\FieldInterface $field The field to add to the schema.
      * @return $this
      */
-    public function addField(Fields\FieldInterface $field)
+    public function addField(Field\FieldInterface $field)
     {
         $this->fields[] = $field;
         return $this;
@@ -117,10 +117,10 @@ class Schema
         return $result;
     }
 
-    public function writeStream(Streams\StreamInterface $stream, DataSet $result)
+    public function writeStream(Streams\StreamInterface $stream, DataSet $data)
     {
         foreach ($this->fields as $field) {
-            $field->write($stream, $result);
+            $field->write($stream, $data);
         }
     }
 }

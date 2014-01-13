@@ -6,18 +6,18 @@
  * @package  php-binary
  * @author Damien Walsh <me@damow.net>
  */
-namespace Binary\Fields;
+namespace Binary\Field;
 
 use Binary\Streams\StreamInterface;
 use Binary\DataSet;
 
 /**
- * CompoundField
+ * Compound
  * A field that can comprise a number of fields.
  *
  * @since 1.0
  */
-class CompoundField implements FieldInterface
+class Compound implements FieldInterface
 {
     /**
      * @protected array The fields enclosed within this compound field.
@@ -56,6 +56,33 @@ class CompoundField implements FieldInterface
 
             foreach ($this->fields as $field) {
                 $field->read($stream, $result);
+            }
+
+            $result->pop();
+        }
+
+        $result->pop();
+    }
+
+    /**
+     * Read from a DataSet and write the translated data in to a
+     * StreamInterface-implementing object.
+     *
+     * @param StreamInterface $stream
+     * @param DataSet $result
+     * @return mixed
+     */
+    public function write(StreamInterface $stream, DataSet $result)
+    {
+        $result->push($this->name);
+        $count = isset($this->count) ? $this->count->get($result) : 1;
+
+        // Read this compound field $count times
+        for ($iteration = 0; $iteration < $count; $iteration ++) {
+            $result->push($iteration);
+
+            foreach ($this->fields as $field) {
+                $field->write($stream, $result);
             }
 
             $result->pop();

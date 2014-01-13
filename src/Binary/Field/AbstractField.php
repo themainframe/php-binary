@@ -6,7 +6,7 @@
  * @package  php-binary
  * @author Damien Walsh <me@damow.net>
  */
-namespace Binary\Fields;
+namespace Binary\Field;
 
 /**
  * Field
@@ -14,7 +14,7 @@ namespace Binary\Fields;
  *
  * @since 1.0
  */
-abstract class Field implements FieldInterface
+abstract class AbstractField implements FieldInterface
 {
     /**
      * @public string $name The name of the field.
