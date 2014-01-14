@@ -35,6 +35,14 @@ class StringStream implements StreamInterface
     }
 
     /**
+     * @return string
+     */
+    public function getString()
+    {
+        return $this->string;
+    }
+
+    /**
      * Reads a single byte from the stream and advances the internal position by 1.
      * Returns false if reading is not possible (EOF, error).
      *
