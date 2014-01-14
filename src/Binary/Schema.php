@@ -42,6 +42,7 @@ class Schema
     /**
      * Add a new field to this schema instance, or to an existing CompoundField.
      *
+     * @todo Refactor
      * @param string $fieldName The name of the field to add.
      * @param array $definition The definition (from JSON) of the field to add.
      * @param Field\Compound $targetField The target compound field to add the new field to.
@@ -54,12 +55,12 @@ class Schema
         // Set the properties on the field
         foreach ($definition as $propertyName => $propertyValue) {
 
-            if ($propertyName[0] === '_') {
+            if (isset($propertyName[0]) && $propertyName[0] === '_') {
                 // Don't add special-meaning _ fields
                 continue;
             }
 
-            if ($propertyValue[0] === '@') {
+            if (isset($propertyValue[0]) && $propertyValue[0] === '@') {
                 // Property is referencing an already-parsed field value
                 $backreference = new Backreference();
                 $backreference->setPath(substr($propertyValue, 1));
