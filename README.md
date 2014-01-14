@@ -1,4 +1,4 @@
-php-binary
+php-binary [![Build Status](https://travis-ci.org/themainframe/php-binary.png?branch=master)](https://travis-ci.org/themainframe/php-binary)
 ==========
 
 A PHP library for parsing structured binary streams.
