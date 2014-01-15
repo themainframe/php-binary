@@ -8,7 +8,7 @@
  */
 namespace Binary\Field;
 
-use Binary\Streams\StreamInterface;
+use Binary\Stream\StreamInterface;
 use Binary\DataSet;
 
 /**
@@ -23,7 +23,7 @@ interface FieldInterface
      * Read from StreamInterface-implementing object and insert the
      * derived data into a DataSet.
      *
-     * @param \Binary\Streams\StreamInterface $stream
+     * @param \Binary\Stream\StreamInterface $stream
      * @param DataSet $result
      * @return mixed
      */

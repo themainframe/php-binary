@@ -6,7 +6,7 @@
  * @package  php-binary
  * @author Damien Walsh <me@damow.net>
  */
-namespace Binary\Streams;
+namespace Binary\Stream;
 
 /**
  * StreamInterface

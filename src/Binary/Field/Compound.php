@@ -8,7 +8,7 @@
  */
 namespace Binary\Field;
 
-use Binary\Streams\StreamInterface;
+use Binary\Stream\StreamInterface;
 use Binary\DataSet;
 
 /**

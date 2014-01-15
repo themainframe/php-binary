@@ -8,7 +8,7 @@
  */
 namespace Binary\Field;
 
-use Binary\Streams\StreamInterface;
+use Binary\Stream\StreamInterface;
 use Binary\DataSet;
 
 /**
@@ -27,7 +27,7 @@ class Text extends AbstractField
 
     public function write(StreamInterface $stream, DataSet $result)
     {
-        $bytes = $result->getValue($this->name);
+        $bytes = substr($result->getValue($this->name), 0, $this->size->get($result));
         $stream->write($bytes);
     }
 }

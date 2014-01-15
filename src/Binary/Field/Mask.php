@@ -10,7 +10,7 @@ namespace Binary\Field;
 
 use Binary;
 use Binary\DataSet;
-use Binary\Streams\StreamInterface;
+use Binary\Stream\StreamInterface;
 
 /**
  * MaskedField
