@@ -88,7 +88,6 @@ class Schema
     /**
      * Add a new field to this schema instance, or to an existing CompoundField.
      *
-     * @todo Refactor
      * @param string $fieldName The name of the field to add.
      * @param array $definition The definition (from JSON) of the field to add.
      * @param Compound $targetField The target compound field to add the new field to.
