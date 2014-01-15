@@ -54,7 +54,7 @@ You can have php-binary parse a generic stream of bytes and output fields as an 
     $stream = new Binary\Streams\StringStream("FOOO\x03LOLLOMLON");
     $result = $schema->readStream($stream);
 
-The resulting associative array (shown here as JSON for clarity) in `$result->data` would contain:
+The resulting associative array in `$result` (shown here as JSON for clarity) would contain:
 
     {
         "sometext": "FOOO",
