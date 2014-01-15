@@ -8,8 +8,10 @@
  */
 namespace Binary;
 
+use Binary\Field\Compound;
 use Binary\Field\Property\Property;
 use Binary\Field\Property\Backreference;
+use Binary\Stream\StreamInterface;
 
 /**
  * Schema
@@ -47,7 +49,7 @@ class Schema
      * @param array $definition The definition (from JSON) of the field to add.
      * @param Field\Compound $targetField The target compound field to add the new field to.
      */
-    private function addDefinedField($fieldName, array $definition, Field\Compound $targetField = null)
+    private function addDefinedField($fieldName, array $definition, Compound $targetField = null)
     {
         $className = __NAMESPACE__ . '\\Field\\' . $definition['_type'];
         $newField = new $className;
@@ -97,7 +99,7 @@ class Schema
      * @param Field\FieldInterface $field The field to add to the schema.
      * @return $this
      */
-    public function addField(Field\FieldInterface $field)
+    public function addField(FieldInterface $field)
     {
         $this->fields[] = $field;
         return $this;
@@ -107,7 +109,7 @@ class Schema
      * @param $stream Stream\StreamInterface The stream to parse.
      * @return DataSet
      */
-    public function readStream(Stream\StreamInterface $stream)
+    public function readStream(StreamInterface $stream)
     {
         $result = new DataSet();
 
@@ -118,7 +120,7 @@ class Schema
         return $result;
     }
 
-    public function writeStream(Stream\StreamInterface $stream, DataSet $data)
+    public function writeStream(StreamInterface $stream, DataSet $data)
     {
         foreach ($this->fields as $field) {
             $field->write($stream, $data);
