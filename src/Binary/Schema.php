@@ -8,6 +8,7 @@
  */
 namespace Binary;
 
+use Binary\Field\AbstractField;
 use Binary\Field\FieldInterface;
 use Binary\Field\Compound;
 use Binary\Field\Property\Property;
@@ -16,7 +17,9 @@ use Binary\Stream\StreamInterface;
 
 /**
  * Schema
- * Represents the internal structure of a binary field file.
+ *
+ * Represents the internal structure of a binary field file & performs the mapping
+ * between the schema definition and the object graph of fields and validators.
  *
  * @since 1.0
  */
@@ -43,18 +46,11 @@ class Schema
     }
 
     /**
-     * Add a new field to this schema instance, or to an existing CompoundField.
-     *
-     * @todo Refactor
-     * @param string $fieldName The name of the field to add.
-     * @param array $definition The definition (from JSON) of the field to add.
-     * @param Compound $targetField The target compound field to add the new field to.
+     * @param AbstractField $field
+     * @param $definition
      */
-    private function addDefinedField($fieldName, array $definition, Compound $targetField = null)
+    private function addPropertiesToField(AbstractField $field, $definition)
     {
-        $className = __NAMESPACE__ . '\\Field\\' . $definition['_type'];
-        $newField = new $className;
-
         // Set the properties on the field
         foreach ($definition as $propertyName => $propertyValue) {
 
@@ -67,27 +63,63 @@ class Schema
                 // Property is referencing an already-parsed field value
                 $backreference = new Backreference();
                 $backreference->setPath(substr($propertyValue, 1));
-                $newField->{$propertyName} = $backreference;
+                $field->{$propertyName} = $backreference;
             } else {
-                $newField->{$propertyName} = new Property($propertyValue);
+                $field->{$propertyName} = new Property($propertyValue);
             }
-
         }
+    }
 
-        // Add the field name
+    /**
+     * @param AbstractField $field
+     * @param $definition
+     */
+    private function addValidatorsToField(AbstractField $field, $definition)
+    {
+        // Set the validators on the field
+        foreach ($definition as $validatorType => $validatorData) {
+            $validatorClassName = __NAMESPACE__ . '\\Validator\\' . $validatorType;
+            $validator = new $validatorClassName;
+            $validator->setDesiredValue($validatorData);
+            $field->addValidator($validator);
+        }
+    }
+
+    /**
+     * Add a new field to this schema instance, or to an existing CompoundField.
+     *
+     * @todo Refactor
+     * @param string $fieldName The name of the field to add.
+     * @param array $definition The definition (from JSON) of the field to add.
+     * @param Compound $targetField The target compound field to add the new field to.
+     */
+    private function addDefinedField($fieldName, array $definition, Compound $targetField = null)
+    {
+        $className = __NAMESPACE__ . '\\Field\\' . $definition['_type'];
+        $newField = new $className;
+
+        // Assign the field name
         $newField->name = $fieldName;
 
+        // Assign properties
+        $this->addPropertiesToField($newField, $definition);
+
+        // Assign validators
+        if (isset($definition['_validators'])) {
+            $this->addValidatorsToField($newField, $definition['_validators']);
+        }
+
         // Are we adding a compound field?
-        if (is_a($newField, __NAMESPACE__ . '\\Field\\CompoundField')) {
-            if (isset($definition['_fields'])) {
-                // Adding a compound field that has some subfields
-                foreach ($definition['_fields'] as $subFieldName => $subFieldDefinition) {
-                    $this->addDefinedField($subFieldName, $subFieldDefinition, $newField);
-                }
+        if (is_a($newField, __NAMESPACE__ . '\\Field\\CompoundField') &&
+            isset($definition['_fields'])) {
+
+            // Adding a compound field that has some subfields
+            foreach ($definition['_fields'] as $subFieldName => $subFieldDefinition) {
+                $this->addDefinedField($subFieldName, $subFieldDefinition, $newField);
             }
         }
 
-        if ($targetField) {
+        if ($targetField instanceof Compound) {
             // Adding the field to an existing compound field
             $targetField->addField($newField);
         } else {
@@ -122,6 +154,10 @@ class Schema
         return $result->getData();
     }
 
+    /**
+     * @param StreamInterface $stream
+     * @param DataSet $data
+     */
     public function writeStream(StreamInterface $stream, DataSet $data)
     {
         foreach ($this->fields as $field) {
