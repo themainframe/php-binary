@@ -20,6 +20,14 @@ class DataSet
     private $currentPath = array();
 
     /**
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
      * Move into a level.
      *
      * @param string $level The level to move into.

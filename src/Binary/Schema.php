@@ -48,7 +48,7 @@ class Schema
      * @todo Refactor
      * @param string $fieldName The name of the field to add.
      * @param array $definition The definition (from JSON) of the field to add.
-     * @param Field\Compound $targetField The target compound field to add the new field to.
+     * @param Compound $targetField The target compound field to add the new field to.
      */
     private function addDefinedField($fieldName, array $definition, Compound $targetField = null)
     {
@@ -107,18 +107,19 @@ class Schema
     }
 
     /**
-     * @param $stream Stream\StreamInterface The stream to parse.
-     * @return DataSet
+     * @param StreamInterface $stream The stream to parse.
+     * @param DataSet $set Optionally an existing data set to extend.
+     * @return array
      */
-    public function readStream(StreamInterface $stream)
+    public function readStream(StreamInterface $stream, DataSet $set = null)
     {
-        $result = new DataSet();
+        $result = $set instanceof DataSet ? $set : new DataSet();
 
         foreach ($this->fields as $field) {
             $field->read($stream, $result);
         }
 
-        return $result;
+        return $result->getData();
     }
 
     public function writeStream(StreamInterface $stream, DataSet $data)
