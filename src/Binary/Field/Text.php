@@ -22,6 +22,7 @@ class Text extends AbstractField
     public function read(StreamInterface $stream, DataSet $result)
     {
         $bytes = $stream->read($this->size->get($result));
+        $this->validate(strval($bytes));
         $result->setValue($this->name, strval($bytes));
     }
 
