@@ -78,7 +78,7 @@ class Schema
         $newField->name = $fieldName;
 
         // Are we adding a compound field?
-        if (is_a($newField, __NAMESPACE__ . '\\Fields\\CompoundField')) {
+        if (is_a($newField, __NAMESPACE__ . '\\Field\\CompoundField')) {
             if (isset($definition['_fields'])) {
                 // Adding a compound field that has some subfields
                 foreach ($definition['_fields'] as $subFieldName => $subFieldDefinition) {
