@@ -8,6 +8,7 @@
  */
 namespace Binary;
 
+use Binary\Field\FieldInterface;
 use Binary\Field\Compound;
 use Binary\Field\Property\Property;
 use Binary\Field\Property\Backreference;
