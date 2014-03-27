@@ -10,6 +10,7 @@ namespace Binary\Exception;
 
 /**
  * ValidatorException
+ * @todo Add expected and actual value fields.
  *
  * @since 1.0
  */
