@@ -100,6 +100,18 @@ class StringStream implements StreamInterface
     }
 
     /**
+     * Instruct the stream handler to close and release any internal resources
+     * or handles it encapsulates.
+     *
+     * @return boolean
+     */
+    public function close()
+    {
+        // No resources need to be released for a string-based stream
+        return true;
+    }
+
+    /**
      * Gets the current position of the internal stream cursor.
      *
      * @return int

@@ -52,6 +52,14 @@ interface StreamInterface
     public function write($bytes);
 
     /**
+     * Instruct the stream handler to close and release any internal resources
+     * or handles it encapsulates.
+     *
+     * @return boolean
+     */
+    public function close();
+
+    /**
      * Gets the current position of the internal stream cursor.
      *
      * @return int

@@ -60,6 +60,41 @@ class FileStream implements StreamInterface
     }
 
     /**
+     * Writes a single byte to the stream and advances the internal position by 1.
+     * Returns the new position as an integer on success, or false on failure.
+     *
+     * @param string $byte The byte to write to the stream.
+     * @return false|int
+     */
+    public function writeByte($byte)
+    {
+        return fwrite($this->handle, $byte, 1);
+    }
+
+    /**
+     * Writes a number of bytes to the stream and advances the internal
+     * position by the appropriate amount.
+     *
+     * @param string $bytes The bytes to write to the stream.
+     * @return string
+     */
+    public function write($bytes)
+    {
+        return fwrite($this->handle, $bytes, strlen($bytes));
+    }
+
+    /**
+     * Instruct the stream handler to close and release any internal resources
+     * or handles it encapsulates.
+     *
+     * @return boolean
+     */
+    public function close()
+    {
+        return fclose($this->handle);
+    }
+
+    /**
      * Gets the current position of the internal stream cursor.
      *
      * @return int
