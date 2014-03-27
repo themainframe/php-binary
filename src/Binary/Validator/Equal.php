@@ -7,6 +7,7 @@
  * @author Damien Walsh <me@damow.net>
  */
 namespace Binary\Validator;
+use Binary\Exception\ValidatorException;
 
 /**
  * Equal
@@ -19,7 +20,11 @@ class Equal extends AbstractValidator
     public function validate($input)
     {
         if ($input != $this->desiredValue) {
-            throw new \Exception('Fail!');
+            throw new ValidatorException(
+                'Field value is ' . $input . '. ' .
+                'Must be equal to ' .
+                $this->desiredValue
+            );
         }
     }
 }
