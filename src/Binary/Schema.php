@@ -46,10 +46,10 @@ class Schema
     }
 
     /**
-     * @param AbstractField $field
+     * @param FieldInterface $field
      * @param $definition
      */
-    private function addPropertiesToField(AbstractField $field, $definition)
+    private function addPropertiesToField(FieldInterface $field, $definition)
     {
         // Set the properties on the field
         foreach ($definition as $propertyName => $propertyValue) {
@@ -71,10 +71,10 @@ class Schema
     }
 
     /**
-     * @param AbstractField $field
+     * @param FieldInterface $field
      * @param $definition
      */
-    private function addValidatorsToField(AbstractField $field, $definition)
+    private function addValidatorsToField(FieldInterface $field, $definition)
     {
         // Set the validators on the field
         foreach ($definition as $validatorType => $validatorData) {
@@ -95,6 +95,7 @@ class Schema
     private function addDefinedField($fieldName, array $definition, Compound $targetField = null)
     {
         $className = __NAMESPACE__ . '\\Field\\' . $definition['_type'];
+
         $newField = new $className;
 
         // Assign the field name
@@ -109,7 +110,7 @@ class Schema
         }
 
         // Are we adding a compound field?
-        if (is_a($newField, __NAMESPACE__ . '\\Field\\CompoundField') &&
+        if (is_a($newField, __NAMESPACE__ . '\\Field\\Compound') &&
             isset($definition['_fields'])) {
 
             // Adding a compound field that has some subfields
