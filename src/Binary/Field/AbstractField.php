@@ -8,6 +8,7 @@
  */
 namespace Binary\Field;
 
+use Binary\Exception\ValidatorException;
 use Binary\Validator\AbstractValidator;
 
 /**
@@ -43,8 +44,18 @@ abstract class AbstractField implements FieldInterface
      */
     public function validate($value)
     {
-        foreach ($this->validators as $validator) {
-            $validator->validate($value);
+        try {
+            foreach ($this->validators as $validator) {
+                $validator->validate($value);
+            }
+        } catch (ValidatorException $exception) {
+
+            // Re-throw with field information
+            throw new \Exception(
+                'Field ' . $this->name . ' failed validation: ' .
+                $exception->getMessage()
+            );
+
         }
     }
 }
