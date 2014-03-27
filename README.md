@@ -51,7 +51,7 @@ This format can be parsed as follows. In this example, the schema is described u
 
 You can have php-binary parse a generic stream of bytes and output fields as an associative array matching your schema definition.
 
-    $stream = new Binary\Streams\StringStream("FOOO\x03LOLLOMLON");
+    $stream = new Binary\Stream\StringStream("FOOO\x03LOLLOMLON");
     $result = $schema->readStream($stream);
 
 The resulting associative array in `$result` (shown here as JSON for clarity) would contain:
