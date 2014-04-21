@@ -51,7 +51,7 @@ abstract class AbstractField implements FieldInterface
         } catch (ValidatorException $exception) {
 
             // Re-throw with field information
-            throw new \Exception(
+            throw new \ValidatorException(
                 'Field ' . $this->name . ' failed validation: ' .
                 $exception->getMessage()
             );
