@@ -7,6 +7,7 @@
  * @author Damien Walsh <me@damow.net>
  */
 namespace Binary\Validator;
+
 use Binary\Exception\ValidatorException;
 
 /**
@@ -17,6 +18,10 @@ use Binary\Exception\ValidatorException;
  */
 class Equal extends AbstractValidator
 {
+    /**
+     * @param $input
+     * @throws \Binary\Exception\ValidatorException
+     */
     public function validate($input)
     {
         if ($input != $this->desiredValue) {
