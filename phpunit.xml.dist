@@ -2,12 +2,7 @@
 <phpunit bootstrap="vendor/autoload.php" colors="true">
     <testsuites>
         <testsuite name="php-binary Test Suite">
-            <directory>tests/Binary/</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/Binary/</directory>
-        </whitelist>
-    </filter>
 </phpunit>
