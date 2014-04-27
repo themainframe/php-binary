@@ -25,6 +25,16 @@ class Compound implements FieldInterface
     protected $fields = array();
 
     /**
+     * @public string The name of the field.
+     */
+    public $name = '';
+
+    /**
+     * @public integer The number of times this field will be repeated.
+     */
+    public $count = 1;
+
+    /**
      * @param int $count The number of times this compound field is repeated.
      */
     public function setCount($count)
@@ -41,9 +51,7 @@ class Compound implements FieldInterface
     }
 
     /**
-     * @param StreamInterface $stream The stream to read fields from.
-     * @param DataSet $result The result to add the value to.
-     * @return array
+     * {@inheritdoc}
      */
     public function read(StreamInterface $stream, DataSet $result)
     {
@@ -65,12 +73,7 @@ class Compound implements FieldInterface
     }
 
     /**
-     * Read from a DataSet and write the translated data in to a
-     * StreamInterface-implementing object.
-     *
-     * @param StreamInterface $stream
-     * @param DataSet $result
-     * @return mixed
+     * {@inheritdoc}
      */
     public function write(StreamInterface $stream, DataSet $result)
     {

@@ -20,6 +20,16 @@ use Binary\Stream\StreamInterface;
  */
 class Mask extends AbstractField
 {
+    /**
+     * The structure of the mask.
+     *
+     * @public array
+     */
+    public $structure = array();
+
+    /**
+     * {@inheritdoc}
+     */
     public function read(StreamInterface $stream, DataSet $result)
     {
         $result->push($this->name);
@@ -33,7 +43,7 @@ class Mask extends AbstractField
             $value = (ord($byte) >> $bitPosition) &
                 bindec(str_repeat('1', $bitFieldSize));
 
-            $result->addValue($bitFieldName, $value);
+            $result->setValue($bitFieldName, $value);
 
             $bitPosition += $bitFieldSize;
         }
@@ -43,10 +53,8 @@ class Mask extends AbstractField
 
     /**
      * @todo Implement
-     * @param StreamInterface $stream
-     * @param DataSet $result
-     * @return mixed|void
-     * @throws \Exception
+     *
+     * {@inheritdoc}
      */
     public function write(StreamInterface $stream, DataSet $result)
     {

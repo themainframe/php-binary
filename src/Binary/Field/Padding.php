@@ -19,10 +19,17 @@ use Binary\DataSet;
 class Padding extends AbstractField
 {
     /**
-     * Skip $this->size bytes from stream and go ahead
-     * @param StreamInterface $stream
-     * @param DataSet $result
-     * @return mixed|void
+     * The size of this field within the stream.
+     *
+     * @public \Binary\Field\Property\PropertyInterface
+     */
+    public $size;
+
+    /**
+     * Skip ahead $this->size bytes in the stream.
+     * Do not mutate the result DataSet at all.
+     *
+     * {@inheritdoc}
      */
     public function read(StreamInterface $stream, DataSet $result)
     {
@@ -30,10 +37,9 @@ class Padding extends AbstractField
     }
 
     /**
-     * Write $this->size NUL bytes into stream
-     * @param StreamInterface $stream
-     * @param DataSet $result
-     * @return mixed|void
+     * Write $this->size NUL bytes to $stream.
+     *
+     * {@inheritdoc}
      */
     public function write(StreamInterface $stream, DataSet $result)
     {

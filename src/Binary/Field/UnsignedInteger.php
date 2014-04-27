@@ -20,6 +20,16 @@ use Binary\Stream\StreamInterface;
  */
 class UnsignedInteger extends AbstractField
 {
+    /**
+     * The size of this field within the stream.
+     *
+     * @public \Binary\Field\Property\PropertyInterface
+     */
+    public $size;
+
+    /**
+     * {@inheritdoc}
+     */
     public function read(StreamInterface $stream, DataSet $result)
     {
         $data = $stream->read($this->size->get($result));
@@ -34,12 +44,7 @@ class UnsignedInteger extends AbstractField
     }
 
     /**
-     * Read from a DataSet and write the translated data in to a
-     * StreamInterface-implementing object.
-     *
-     * @param StreamInterface $stream
-     * @param DataSet $result
-     * @return mixed
+     * {@inheritdoc}
      */
     public function write(StreamInterface $stream, DataSet $result)
     {

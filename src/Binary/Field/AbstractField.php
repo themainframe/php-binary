@@ -41,6 +41,9 @@ abstract class AbstractField implements FieldInterface
 
     /**
      * Check that the field is currently valid.
+     *
+     * @param mixed $value The actual value of the field that has been read.
+     * @throws ValidatorException
      */
     public function validate($value)
     {
