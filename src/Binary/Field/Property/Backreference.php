@@ -20,17 +20,18 @@ class Backreference extends Property
 {
     private $path = '';
 
-
+    /**
+     * Override the Property constructor as Backreferences have no explicit value.
+     */
     public function __construct()
     {
-
     }
 
     /**
-     * Get the value for the property
+     * Get the value of the property for the given DataSet.
      *
      * @param DataSet $result
-     * @return array|null
+     * @return mixed
      */
     public function get(DataSet $result)
     {

@@ -22,11 +22,20 @@ class Property implements PropertyInterface
      */
     private $value = null;
 
+    /**
+     * @param mixed $value The value of the new property.
+     */
     public function __construct($value)
     {
         $this->value = $value;
     }
 
+    /**
+     * Get the value of the property for the given DataSet.
+     *
+     * @param DataSet $result
+     * @return mixed
+     */
     public function get(DataSet $result)
     {
         return $this->value;
