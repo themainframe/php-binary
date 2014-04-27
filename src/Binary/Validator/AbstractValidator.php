@@ -13,9 +13,19 @@ namespace Binary\Validator;
  *
  * @since 1.0
  */
-abstract class AbstractValidator
+abstract class AbstractValidator implements ValidatorInterface
 {
     protected $desiredValue;
+
+    /**
+     * Initialise a new validator.
+     *
+     * @param mixed $desiredValue
+     */
+    public function __construct($desiredValue = null)
+    {
+        $this->desiredValue = $desiredValue;
+    }
 
     /**
      * @param mixed $desiredValue
