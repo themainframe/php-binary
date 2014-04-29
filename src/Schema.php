@@ -9,11 +9,7 @@
 namespace Binary;
 
 use Binary\Exception\SchemaException;
-use Binary\Field\AbstractField;
 use Binary\Field\FieldInterface;
-use Binary\Field\Compound;
-use Binary\Field\Property\Property;
-use Binary\Field\Property\Backreference;
 use Binary\Stream\StreamInterface;
 use Binary\Validator\ValidatorInterface;
 
