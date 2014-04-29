@@ -31,14 +31,14 @@ class Delimited extends AbstractField
      *
      * @public \Binary\Field\Property\PropertyInterface
      */
-    public $delimiter = "\n";
+    protected $delimiter = "\n";
 
     /**
      * The maximum number of bytes to search ahead looking for $delimiter.
      *
      * @public \Binary\Field\Property\PropertyInterface
      */
-    public $searchLength = 128;
+    protected $searchLength = 128;
 
     /**
      * Set up the field

@@ -14,11 +14,11 @@ use Binary\DataSet;
 
 /**
  * Compound
- * A field that can comprise a number of fields.
+ * A field that can comprise a number of fields and be repeated a number of times.
  *
  * @since 1.0
  */
-class Compound implements FieldInterface
+class Compound extends AbstractField
 {
     /**
      * @protected array The fields enclosed within this compound field.
@@ -26,14 +26,23 @@ class Compound implements FieldInterface
     protected $fields = array();
 
     /**
-     * @public string The name of the field.
+     * @protected string The name of the field.
      */
-    public $name = '';
+    protected $name = '';
 
     /**
-     * @public integer The number of times this field will be repeated.
+     * @protected PropertyInterface The number of times this field will be repeated.
      */
-    public $count = 1;
+    protected $count = 1;
+
+    /**
+     * Assign properties as actual properties.
+     */
+    public function __construct()
+    {
+        $this->name = new Property($this->name);
+        $this->count = new Property($this->count);
+    }
 
     /**
      * @param int $count The number of times this compound field is repeated.
