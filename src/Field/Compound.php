@@ -9,6 +9,7 @@
 namespace Binary\Field;
 
 use Binary\Field\Property\Property;
+use Binary\Field\Property\PropertyInterface;
 use Binary\Stream\StreamInterface;
 use Binary\DataSet;
 
@@ -26,11 +27,6 @@ class Compound extends AbstractField
     protected $fields = array();
 
     /**
-     * @protected string The name of the field.
-     */
-    protected $name = '';
-
-    /**
      * @protected PropertyInterface The number of times this field will be repeated.
      */
     protected $count = 1;
@@ -45,13 +41,13 @@ class Compound extends AbstractField
     }
 
     /**
-     * @param int $count The number of times this compound field is repeated.
+     * @param PropertyInterface $count The number of times this compound field is repeated.
      *
      * @return $this
      */
-    public function setCount($count)
+    public function setCount(PropertyInterface $count)
     {
-        $this->count = new Property($count);
+        $this->count = $count;
 
         return $this;
     }
