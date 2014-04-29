@@ -11,22 +11,14 @@ namespace Binary\Field;
 use Binary\DataSet;
 use Binary\Stream\StreamInterface;
 
-
 /**
  * UnsignedInteger
  * Field.
  *
  * @since 1.0
  */
-class UnsignedInteger extends AbstractField
+class UnsignedInteger extends AbstractSizedField
 {
-    /**
-     * The size of this field within the stream.
-     *
-     * @public \Binary\Field\Property\PropertyInterface
-     */
-    public $size;
-
     /**
      * {@inheritdoc}
      */
