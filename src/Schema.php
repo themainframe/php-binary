@@ -8,6 +8,7 @@
  */
 namespace Binary;
 
+use Binary\Exception\SchemaException;
 use Binary\Field\AbstractField;
 use Binary\Field\FieldInterface;
 use Binary\Field\Compound;
@@ -46,6 +47,33 @@ class Schema
     }
 
     /**
+     * @param $type
+     * @return FieldInterface
+     * @throws Exception\SchemaException
+     */
+    public function createField($type)
+    {
+        // Create the field
+        $className = __NAMESPACE__ . '\\Field\\' . $type;
+
+        if (!class_exists($className)) {
+            throw new SchemaException(
+                sprintf('The requested field class "%s" cannot be found.', $type)
+            );
+        }
+
+        $newField = new $className;
+
+        if (!($newField instanceof FieldInterface)) {
+            throw new SchemaException(
+                sprintf('The requested field class "%s" does not implement FieldInterface.', $type)
+            );
+        }
+
+        return $newField;
+    }
+
+    /**
      * @param FieldInterface $field
      * @param $definition
      */
@@ -61,8 +89,7 @@ class Schema
 
             if (isset($propertyValue[0]) && $propertyValue[0] === '@') {
                 // Property is referencing an already-parsed field value
-                $backreference = new Backreference();
-                $backreference->setPath(substr($propertyValue, 1));
+                $backreference = new Backreference(substr($propertyValue, 1));
                 $field->{$propertyName} = $backreference;
             } else {
                 $field->{$propertyName} = new Property($propertyValue);
