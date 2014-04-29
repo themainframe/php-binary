@@ -21,10 +21,11 @@ class Backreference extends Property
     private $path = '';
 
     /**
-     * Override the Property constructor as Backreferences have no explicit value.
+     * @param string $path The path to resolve for this backreference
      */
-    public function __construct()
+    public function __construct($path)
     {
+        $this->path = $path;
     }
 
     /**

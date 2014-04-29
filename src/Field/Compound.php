@@ -8,6 +8,7 @@
  */
 namespace Binary\Field;
 
+use Binary\Field\Property\Property;
 use Binary\Stream\StreamInterface;
 use Binary\DataSet;
 
@@ -36,18 +37,26 @@ class Compound implements FieldInterface
 
     /**
      * @param int $count The number of times this compound field is repeated.
+     *
+     * @return $this
      */
     public function setCount($count)
     {
-        $this->count = $count;
+        $this->count = new Property($count);
+
+        return $this;
     }
 
     /**
      * @param FieldInterface $field The field to add to the compound field.
+     *
+     * @return $this
      */
     public function addField(FieldInterface $field)
     {
         $this->fields[] = $field;
+
+        return $this;
     }
 
     /**
