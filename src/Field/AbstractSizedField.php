@@ -29,10 +29,13 @@ abstract class AbstractSizedField extends AbstractField
 
     /**
      * @param PropertyInterface $size
+     * @return $this
      */
     public function setSize(PropertyInterface $size)
     {
         $this->size = $size;
+
+        return $this;
     }
 
     /**
