@@ -23,10 +23,6 @@ use Binary\Stream\StreamInterface;
  * Factory for producing Schemas from array-style definitions.
  * Typically the schema array will be derived from a JSON or XML serialisation.
  *
- * This class is of limited use due to the requirement for values to be serialised. Therefore scemata containing
- * validators and field properties involving closures or anonymous functions cannot be created using SchemaBuilder. To
- * create schemata with these features, use the fluent interface of the Binary\Schema class.
- *
  * @since 1.0
  */
 class SchemaBuilder
