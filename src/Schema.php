@@ -35,7 +35,7 @@ class Schema
      * @return FieldInterface
      * @throws Exception\SchemaException
      */
-    public function createField($type)
+    public static function createField($type)
     {
         // Create the field
         $className = __NAMESPACE__ . '\\Field\\' . $type;
@@ -64,7 +64,7 @@ class Schema
      * @return ValidatorInterface
      * @throws Exception\SchemaException
      */
-    public function createValidator($type)
+    public static function createValidator($type)
     {
         // Create the validator
         $className = __NAMESPACE__ . '\\Validator\\' . $type;
