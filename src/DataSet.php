@@ -20,6 +20,16 @@ class DataSet
     private $currentPath = array();
 
     /**
+     * Create a new DataSet, initialised with a data array.
+     *
+     * @param array $data
+     */
+    public function __construct(array $data = array())
+    {
+        $this->data = $data;
+    }
+
+    /**
      * @return array
      */
     public function getData()
