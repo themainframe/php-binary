@@ -47,7 +47,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
         $dataSet = new DataSet();
         $dataSet->setValue('foo', 'bar');
 
-        $this->assertEquals('bar', $dataSet->getValueByPath(array('foo')));
+        $this->assertEquals('bar', $dataSet->getValueByPath(array('foo'), true));
     }
 
     /**
@@ -58,7 +58,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
         $dataSet = new DataSet();
         $dataSet->setValueByPath(array('foo'), 'bar');
 
-        $this->assertEquals('bar', $dataSet->getValueByPath(array('foo')));
+        $this->assertEquals('bar', $dataSet->getValueByPath(array('foo'), true));
     }
 
     /**
@@ -98,7 +98,7 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
         $dataSet->push('level1');
         $dataSet->setValue('foo', 'bar');
 
-        $this->assertEquals('bar', $dataSet->getValueByPath(array('level1', 'foo')));
+        $this->assertEquals('bar', $dataSet->getValueByPath(array('level1', 'foo'), true));
     }
 
     /**
@@ -109,6 +109,6 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
         $dataSet = new DataSet();
         $dataSet->setValueByPath(array('level1', 'foo'), 'bar');
 
-        $this->assertEquals('bar', $dataSet->getValueByPath(array('level1', 'foo')));
+        $this->assertEquals('bar', $dataSet->getValueByPath(array('level1', 'foo'), true));
     }
 }

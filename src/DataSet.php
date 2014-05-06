@@ -116,15 +116,14 @@ class DataSet
      * through the levels of the DataSet to the required value.
      *
      * @param array $path A path composed of strings to the value.
+     * @param boolean $absolute Indicate that the path is absolute.
      * @return array|null
      */
-    public function getValueByPath($path)
+    public function getValueByPath($path, $absolute = false)
     {
         $child = $this->data;
 
-        if ('' === $path[0]) {
-            array_shift($path);
-        } else {
+        if (!$absolute) {
             foreach ($this->currentPath as $part) {
                 if (isset($child[$part])) {
                     $child = $child[$part];

@@ -36,8 +36,11 @@ class Backreference extends Property
      */
     public function get(DataSet $result)
     {
+        // If the path begins '/', it is absolute
+        $absolute = isset($this->path[0]) && $this->path[0] === '/';
+
         $pathParts = explode('/', $this->path);
-        return $result->getValueByPath($pathParts);
+        return $result->getValueByPath($pathParts, $absolute);
     }
 
     /**
