@@ -28,6 +28,14 @@ class DataSet
     }
 
     /**
+     * @param array $data
+     */
+    public function setData(array $data)
+    {
+        $this->data = $data;
+    }
+
+    /**
      * Move into a level.
      *
      * @param string $level The level to move into.
