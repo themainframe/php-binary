@@ -3,6 +3,9 @@ php-binary [![Build Status](https://travis-ci.org/themainframe/php-binary.svg?br
 
 A PHP library for parsing structured binary streams.
 
+## Documentation
+
+Documentation can be found in the `documentation` directory, as well as online at [http://php-binary.damow.net](php-binary.damow.net)
 
 ## Usage
 
