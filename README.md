@@ -5,7 +5,7 @@ A PHP library for parsing structured binary streams.
 
 ## Documentation
 
-Documentation can be found in the `documentation` directory, as well as online at [http://php-binary.damow.net](php-binary.damow.net)
+Documentation can be found in the `documentation` directory, as well as online at [php-binary.damow.net](http://php-binary.damow.net)
 
 ## Usage
 
