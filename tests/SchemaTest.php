@@ -8,6 +8,8 @@
  */
 namespace Binary;
 
+use Binary\Field\Text;
+
 /**
  * SchemaTest
  *
@@ -17,15 +19,11 @@ namespace Binary;
  */
 class SchemaTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSimpleInitWithArray()
+    public function test()
     {
         $schema = new Schema();
-        $schema->initWithArray(array(
-            'foo' => array(
-                '_type' => 'Text',
-                'size' => 4
-            )
-        ));
+        $schema->addField(new Text());
+        $schema->addField(new Text());
 
         // Inspect the schema
         $this->assertArrayHasKey(0, $schema->fields);

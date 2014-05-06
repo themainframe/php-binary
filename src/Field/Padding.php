@@ -16,15 +16,8 @@ use Binary\DataSet;
  *
  * @since 1.0
  */
-class Padding extends AbstractField
+class Padding extends AbstractSizedField
 {
-    /**
-     * The size of this field within the stream.
-     *
-     * @public \Binary\Field\Property\PropertyInterface
-     */
-    public $size;
-
     /**
      * Skip ahead $this->size bytes in the stream.
      * Do not mutate the result DataSet at all.

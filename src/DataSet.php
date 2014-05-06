@@ -5,6 +5,7 @@
  *
  * @package  php-binary
  * @author Damien Walsh <me@damow.net>
+ * @author Josh Di Fabio <jd@amp.co>
  */
 namespace Binary;
 
@@ -20,11 +21,29 @@ class DataSet
     private $currentPath = array();
 
     /**
+     * Create a new DataSet, initialised with a data array.
+     *
+     * @param array $data
+     */
+    public function __construct(array $data = array())
+    {
+        $this->data = $data;
+    }
+
+    /**
      * @return array
      */
     public function getData()
     {
         return $this->data;
+    }
+
+    /**
+     * @param array $data
+     */
+    public function setData(array $data)
+    {
+        $this->data = $data;
     }
 
     /**
@@ -102,6 +121,18 @@ class DataSet
     public function getValueByPath($path)
     {
         $child = $this->data;
+
+        if ('' === $path[0]) {
+            array_shift($path);
+        } else {
+            foreach ($this->currentPath as $part) {
+                if (isset($child[$part])) {
+                    $child = $child[$part];
+                } else {
+                    return null;
+                }
+            }
+        }
 
         foreach ($path as $part) {
             if (isset($child[$part])) {

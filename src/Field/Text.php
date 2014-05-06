@@ -17,15 +17,8 @@ use Binary\DataSet;
  *
  * @since 1.0
  */
-class Text extends AbstractField
+class Text extends AbstractSizedField
 {
-    /**
-     * The size of this field within the stream.
-     *
-     * @public \Binary\Field\Property\PropertyInterface
-     */
-    public $size;
-
     /**
      * {@inheritdoc}
      */

@@ -30,13 +30,38 @@ abstract class AbstractField implements FieldInterface
     public $name = '';
 
     /**
+     * Set the name of this field.
+     *
+     * @param string $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get the name of this field.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Attach a validator to the field.
      *
      * @param AbstractValidator $validator
+     * @return $this
      */
     public function addValidator(AbstractValidator $validator)
     {
         $this->validators[] = $validator;
+
+        return $this;
     }
 
     /**

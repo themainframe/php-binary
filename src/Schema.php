@@ -8,12 +8,10 @@
  */
 namespace Binary;
 
-use Binary\Field\AbstractField;
+use Binary\Exception\SchemaException;
 use Binary\Field\FieldInterface;
-use Binary\Field\Compound;
-use Binary\Field\Property\Property;
-use Binary\Field\Property\Backreference;
 use Binary\Stream\StreamInterface;
+use Binary\Validator\ValidatorInterface;
 
 /**
  * Schema
@@ -31,101 +29,61 @@ class Schema
     public $fields = array();
 
     /**
-     * Initialise a new schema with a definition in the form of an array of fields.
+     * Utility method to spawn a Field of a specific type.
      *
-     * @param array $definition The field set to initialise the schema with.
-     * @return $this
+     * @param $type
+     * @return FieldInterface
+     * @throws Exception\SchemaException
      */
-    public function initWithArray(array $definition)
+    public static function createField($type)
     {
-        foreach ($definition as $fieldName => $field) {
-            $this->addDefinedField($fieldName, $field);
+        // Create the field
+        $className = __NAMESPACE__ . '\\Field\\' . $type;
+
+        if (!class_exists($className)) {
+            throw new SchemaException(
+                sprintf('The requested field class "%s" cannot be found.', $type)
+            );
         }
-
-        return $this;
-    }
-
-    /**
-     * @param FieldInterface $field
-     * @param $definition
-     */
-    private function addPropertiesToField(FieldInterface $field, $definition)
-    {
-        // Set the properties on the field
-        foreach ($definition as $propertyName => $propertyValue) {
-
-            if (isset($propertyName[0]) && $propertyName[0] === '_') {
-                // Don't add special-meaning _ fields
-                continue;
-            }
-
-            if (isset($propertyValue[0]) && $propertyValue[0] === '@') {
-                // Property is referencing an already-parsed field value
-                $backreference = new Backreference();
-                $backreference->setPath(substr($propertyValue, 1));
-                $field->{$propertyName} = $backreference;
-            } else {
-                $field->{$propertyName} = new Property($propertyValue);
-            }
-        }
-    }
-
-    /**
-     * @param FieldInterface $field
-     * @param $definition
-     */
-    private function addValidatorsToField(FieldInterface $field, $definition)
-    {
-        // Set the validators on the field
-        foreach ($definition as $validatorType => $validatorData) {
-            $validatorClassName = __NAMESPACE__ . '\\Validator\\' . $validatorType;
-            $validator = new $validatorClassName;
-            $validator->setDesiredValue($validatorData);
-            $field->addValidator($validator);
-        }
-    }
-
-    /**
-     * Add a new field to this schema instance, or to an existing CompoundField.
-     *
-     * @param string $fieldName The name of the field to add.
-     * @param array $definition The definition (from JSON) of the field to add.
-     * @param Compound $targetField The target compound field to add the new field to.
-     */
-    private function addDefinedField($fieldName, array $definition, Compound $targetField = null)
-    {
-        $className = __NAMESPACE__ . '\\Field\\' . $definition['_type'];
 
         $newField = new $className;
 
-        // Assign the field name
-        $newField->name = $fieldName;
-
-        // Assign properties
-        $this->addPropertiesToField($newField, $definition);
-
-        // Assign validators
-        if (isset($definition['_validators'])) {
-            $this->addValidatorsToField($newField, $definition['_validators']);
+        if (!($newField instanceof FieldInterface)) {
+            throw new SchemaException(
+                sprintf('The requested field class "%s" does not implement FieldInterface.', $type)
+            );
         }
 
-        // Are we adding a compound field?
-        if (is_a($newField, __NAMESPACE__ . '\\Field\\Compound') &&
-            isset($definition['_fields'])) {
+        return $newField;
+    }
 
-            // Adding a compound field that has some subfields
-            foreach ($definition['_fields'] as $subFieldName => $subFieldDefinition) {
-                $this->addDefinedField($subFieldName, $subFieldDefinition, $newField);
-            }
+    /**
+     * Utility method to spawn a Validator of a specific type.
+     *
+     * @param $type
+     * @return ValidatorInterface
+     * @throws Exception\SchemaException
+     */
+    public static function createValidator($type)
+    {
+        // Create the validator
+        $className = __NAMESPACE__ . '\\Validator\\' . $type;
+
+        if (!class_exists($className)) {
+            throw new SchemaException(
+                sprintf('The requested validator class "%s" cannot be found.', $type)
+            );
         }
 
-        if ($targetField instanceof Compound) {
-            // Adding the field to an existing compound field
-            $targetField->addField($newField);
-        } else {
-            // Adding the field to this schema
-            $this->addField($newField);
+        $newValidator = new $className;
+
+        if (!($newValidator instanceof ValidatorInterface)) {
+            throw new SchemaException(
+                sprintf('The requested validator class "%s" does not implement ValidatorInterface.', $type)
+            );
         }
+
+        return $newValidator;
     }
 
     /**

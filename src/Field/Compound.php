@@ -8,16 +8,18 @@
  */
 namespace Binary\Field;
 
+use Binary\Field\Property\Property;
+use Binary\Field\Property\PropertyInterface;
 use Binary\Stream\StreamInterface;
 use Binary\DataSet;
 
 /**
  * Compound
- * A field that can comprise a number of fields.
+ * A field that can comprise a number of fields and be repeated a number of times.
  *
  * @since 1.0
  */
-class Compound implements FieldInterface
+class Compound extends AbstractField
 {
     /**
      * @protected array The fields enclosed within this compound field.
@@ -25,29 +27,41 @@ class Compound implements FieldInterface
     protected $fields = array();
 
     /**
-     * @public string The name of the field.
+     * @protected PropertyInterface The number of times this field will be repeated.
      */
-    public $name = '';
+    protected $count = 1;
 
     /**
-     * @public integer The number of times this field will be repeated.
+     * Assign properties as actual properties.
      */
-    public $count = 1;
+    public function __construct()
+    {
+        $this->name = new Property($this->name);
+        $this->count = new Property($this->count);
+    }
 
     /**
-     * @param int $count The number of times this compound field is repeated.
+     * @param PropertyInterface $count The number of times this compound field is repeated.
+     *
+     * @return $this
      */
-    public function setCount($count)
+    public function setCount(PropertyInterface $count)
     {
         $this->count = $count;
+
+        return $this;
     }
 
     /**
      * @param FieldInterface $field The field to add to the compound field.
+     *
+     * @return $this
      */
     public function addField(FieldInterface $field)
     {
         $this->fields[] = $field;
+
+        return $this;
     }
 
     /**

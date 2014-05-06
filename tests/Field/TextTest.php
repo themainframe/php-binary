@@ -21,12 +21,12 @@ class TextTest extends \PHPUnit_Framework_TestCase
     {
         $field = new Text();
 
-        $property = $this->getMock('\Binary\Property\Property', array('get'));
+        $property = $this->getMockBuilder('\Binary\Field\Property\PropertyInterface')->getMock();
         $property->expects($this->any())
             ->method('get')
             ->will($this->returnValue(4));
 
-        $field->size= $property;
+        $field->setSize($property);
         $field->name = 'foo';
 
         $stream = $this->getMock('\Binary\Stream\StreamInterface');

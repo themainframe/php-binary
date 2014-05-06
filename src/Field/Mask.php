@@ -11,6 +11,7 @@ namespace Binary\Field;
 use Binary;
 use Binary\DataSet;
 use Binary\Stream\StreamInterface;
+use Binary\Field\Property\PropertyInterface;
 
 /**
  * MaskedField
@@ -23,9 +24,28 @@ class Mask extends AbstractField
     /**
      * The structure of the mask.
      *
-     * @public array
+     * @protected PropertyInterface
      */
-    public $structure = array();
+    protected $structure = array();
+
+    /**
+     * @param PropertyInterface $structure
+     * @return $this
+     */
+    public function setStructure(PropertyInterface $structure)
+    {
+        $this->structure = $structure;
+
+        return $this;
+    }
+
+    /**
+     * @return PropertyInterface
+     */
+    public function getStructure()
+    {
+        return $this->structure;
+    }
 
     /**
      * {@inheritdoc}
@@ -38,7 +58,10 @@ class Mask extends AbstractField
         $byte = $stream->readByte();
         $bitPosition = 0;
 
-        foreach ($this->structure as $bitFieldName => $bitFieldSize) {
+        // Get the structure
+        $structure = $this->structure->get();
+
+        foreach ($structure as $bitFieldName => $bitFieldSize) {
 
             $value = (ord($byte) >> $bitPosition) &
                 bindec(str_repeat('1', $bitFieldSize));
