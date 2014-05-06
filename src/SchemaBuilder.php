@@ -160,7 +160,7 @@ class SchemaBuilder
 
             // Adding a compound field that has some subfields
             foreach ($definition['_fields'] as $subFieldName => $subFieldDefinition) {
-                $this->addDefinedField($subFieldName, $subFieldDefinition, $newField);
+                $this->addDefinedField($schema, $subFieldName, $subFieldDefinition, $newField);
             }
         }
 
