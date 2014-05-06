@@ -24,9 +24,28 @@ class Mask extends AbstractField
     /**
      * The structure of the mask.
      *
-     * @public PropertyInterface
+     * @protected PropertyInterface
      */
-    public $structure = array();
+    protected $structure = array();
+
+    /**
+     * @param PropertyInterface $structure
+     * @return $this
+     */
+    public function setStructure(PropertyInterface $structure)
+    {
+        $this->structure = $structure;
+
+        return $this;
+    }
+
+    /**
+     * @return PropertyInterface
+     */
+    public function getStructure()
+    {
+        return $this->structure;
+    }
 
     /**
      * {@inheritdoc}
