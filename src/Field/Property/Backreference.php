@@ -40,6 +40,10 @@ class Backreference extends Property
         $absolute = isset($this->path[0]) && $this->path[0] === '/';
 
         $pathParts = explode('/', $this->path);
+        if ($absolute) {
+            array_shift($pathParts);
+        }
+
         return $result->getValueByPath($pathParts, $absolute);
     }
 
