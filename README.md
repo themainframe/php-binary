@@ -20,8 +20,8 @@ Here is an example binary format:
 
 This format can be parsed as follows. In this example, the schema is described using JSON for clarity, though in practise any array may be used.
 
-    $schema = new Binary\Schema;
-    $schema->initWithArray(json_decode('
+    $builder = new Binary\SchemaBuilder;
+    $schema = $builder->createFromArray(json_decode('
 
         {
            "sometext": {
