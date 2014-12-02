@@ -4,13 +4,15 @@ The simplest way to define a schema in php-binary is to use the `SchemaBuilder` 
 
 `SchemaBuilder` has a `createFromArray` method that takes an array that describes the schema to be created:
 
-    $sb = new \Binary\SchemaBuilder();
-    $sc = $sb->createFromArray(array(
-        'protocol' => array(
-            '_type' => 'Text',
-            'size' => 4
-        )
-    ));
+```php
+$sb = new \Binary\SchemaBuilder();
+$sc = $sb->createFromArray(array(
+    'protocol' => array(
+        '_type' => 'Text',
+        'size' => 4
+    )
+));
+```
 
 Typically the schema will be described as JSON or XML and converted to an array before being given to `SchemaBuilder::createFromArray`.
 
@@ -28,9 +30,11 @@ Under the hood, `SchemaBuilder` uses a number of Fluent Interfaces to define a s
 
 You can opt to use these too if you wish:
 
-    $schema = new Binary\Schema;
-    $schema->addField(
-        $schema->createField('Text')
-            ->setName('protocol')
-            ->setSize(new \Binary\Field\Property\Property(4))
-    );
+```php
+$schema = new Binary\Schema;
+$schema->addField(
+    $schema->createField('Text')
+        ->setName('protocol')
+        ->setSize(new \Binary\Field\Property\Property(4))
+);
+```

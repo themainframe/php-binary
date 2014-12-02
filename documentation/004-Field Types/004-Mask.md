@@ -17,13 +17,15 @@ For example, an RGBA (Red, Green, Blue, Alpha Channel) colour can be represented
 
 To read a colour in this format from a stream, a schema may have the following field defined:
 
-    $colour = $schema->createField('Mask')
-        ->setName('colour')
-        ->setStructure(new Property(array(
+```php
+$colour = $schema->createField('Mask')
+    ->setName('colour')
+    ->setStructure(new Property(array(
 
-            'red' => 2,
-            'green' => 2,
-            'blue' => 2,
-            'alpha' => 2
+        'red' => 2,
+        'green' => 2,
+        'blue' => 2,
+        'alpha' => 2
 
-        ));
+    ));
+```
