@@ -1,6 +1,7 @@
 {
     "name": "themainframe/php-binary",
     "description": "A PHP library for parsing structured binary streams.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Damien Walsh",
