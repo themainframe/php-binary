@@ -20,27 +20,29 @@ Given a simple schema:
 
 The following php-binary schema could be created:
 
-    $schema = new Binary\Schema()
+```php
+$schema = new Binary\Schema()
 
-        ->addField(
+    ->addField(
 
-            $schema->createField('Compound')
+        $schema->createField('Compound')
 
-                // Set the name and the number of repetitions (point 3 above)
-                ->setName('group')
-                ->setCount(new Property(10))
+            // Set the name and the number of repetitions (point 3 above)
+            ->setName('group')
+            ->setCount(new Property(10))
 
-                // Add the fields (points 1 and 2 above)
-                ->addField(
-                    $schema->createField('UnsignedInteger')
-                        ->setName('size')
-                        ->setSize(new Property(1))
-                )
-                ->addField(
-                    $schema->createField('Text')
-                        ->setName('text')
-                        ->setSize(new Backreference('size'))
-                )
-        )
+            // Add the fields (points 1 and 2 above)
+            ->addField(
+                $schema->createField('UnsignedInteger')
+                    ->setName('size')
+                    ->setSize(new Property(1))
+            )
+            ->addField(
+                $schema->createField('Text')
+                    ->setName('text')
+                    ->setSize(new Backreference('size'))
+            )
+    )
 
-    ;
+;
+```

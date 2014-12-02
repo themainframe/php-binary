@@ -20,60 +20,66 @@ Here is an example binary format:
 
 This format can be parsed as follows. In this example, the schema is described using JSON for clarity, though in practise any array may be used.
 
-    $builder = new Binary\SchemaBuilder;
-    $schema = $builder->createFromArray(json_decode('
+```php
+$builder = new Binary\SchemaBuilder;
+$schema = $builder->createFromArray(json_decode('
 
-        {
-           "sometext": {
-               "_type": "Text",
-               "size": 4
-           },
-           "somebyte": {
-               "_type": "UnsignedInteger",
-               "size": 1
-           },
-           "somefields": {
-               "_type": "Compound",
-               "count": "@somebyte",
-               "_fields": {
-                   "footext": {
-                       "_type": "Text",
-                       "size": 2
-                   },
-                   "foobyte": {
-                       "_type": "UnsignedInteger",
-                       "size": 1
-                   }
+    {
+       "sometext": {
+           "_type": "Text",
+           "size": 4
+       },
+       "somebyte": {
+           "_type": "UnsignedInteger",
+           "size": 1
+       },
+       "somefields": {
+           "_type": "Compound",
+           "count": "@somebyte",
+           "_fields": {
+               "footext": {
+                   "_type": "Text",
+                   "size": 2
+               },
+               "foobyte": {
+                   "_type": "UnsignedInteger",
+                   "size": 1
                }
            }
-        }
+       }
+    }
 
-    ', true));
+', true));
+```
 
 ### Parsing a Stream
 
 You can have php-binary parse a generic stream of bytes and output fields as an associative array matching your schema definition.
 
-    $stream = new Binary\Stream\StringStream("FOOO\x03LOLLOMLON");
-    $result = $schema->readStream($stream);
+```php
+$stream = new Binary\Stream\StringStream("FOOO\x03LOLLOMLON");
+$result = $schema->readStream($stream);
+```
 
 The resulting associative array in `$result` (shown here as JSON for clarity) would contain:
 
-    {
-        "sometext": "FOOO",
-        "somebyte": 3,
-        "somefields": [
-            {
-                "footext": "LO",
-                "foobyte": 76
-            },
-            {
-                "footext": "LO",
-                "foobyte": 77
-            },
-            {
-                "footext": "LO",
-                "foobyte": 78
-            }
-        ]
-    }
+```json
+{
+    "sometext": "FOOO",
+    "somebyte": 3,
+    "somefields": [
+        {
+            "footext": "LO",
+            "foobyte": 76
+        },
+        {
+            "footext": "LO",
+            "foobyte": 77
+        },
+        {
+            "footext": "LO",
+            "foobyte": 78
+        }
+    ]
+}
+```

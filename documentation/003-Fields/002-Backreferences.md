@@ -9,23 +9,25 @@ a structure might have a single unsigned integer byte that dictates how long the
 
 In this situation, the following schema could be defined:
 
-    $schema
+```php
+$schema
 
-        // 1 byte unsigned integer
-        ->addField(
-            $schema->createField('UnsignedInteger')
-                ->setName('length')
-                ->setSize(new Property(1))
-        )
+    // 1 byte unsigned integer
+    ->addField(
+        $schema->createField('UnsignedInteger')
+            ->setName('length')
+            ->setSize(new Property(1))
+    )
 
-        // n bytes of ASCII text
-        ->addField(
-            $schema->createField('Text')
-                ->setName('sometext')
-                ->setSize(new Backreference('length'))
-        )
+    // n bytes of ASCII text
+    ->addField(
+        $schema->createField('Text')
+            ->setName('sometext')
+            ->setSize(new Backreference('length'))
+    )
 
-    ;
+;
+```
 
 Backreferences can refer to any previously-read field value.
 

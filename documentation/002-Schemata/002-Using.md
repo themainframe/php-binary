@@ -6,9 +6,10 @@ Schemata can be used to either read or write from or to a `StreamInterface`-impl
 
 Given a schema object, `$schema`, a stream can be read and parsed. A `StringStream` instance is used here as an example:
 
-    $stream = new \Binary\Stream\StringStream("FOOO\x03LOLLOMLON");
-    $result = $schema->readStream($stream);
-
+```php
+$stream = new \Binary\Stream\StringStream("FOOO\x03LOLLOMLON");
+$result = $schema->readStream($stream);
+```
 
 ### Writing
 
@@ -18,6 +19,8 @@ The data array should be a key-value array of field names and values.
 
 A `StringStream` instance is used here as an example:
 
-    $stream = new \Binary\Stream\StringStream();
-    $dataSet = new \Binary\DataSet($data);
-    $schema->writeStream($stream, $dataSet);
+```php
+$stream = new \Binary\Stream\StringStream();
+$dataSet = new \Binary\DataSet($data);
+$schema->writeStream($stream, $dataSet);
+```
