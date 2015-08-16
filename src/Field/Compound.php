@@ -36,7 +36,7 @@ class Compound extends AbstractField
      */
     public function __construct()
     {
-        $this->name = new Property($this->getName());
+        $this->name = $this->getName();
         $this->count = new Property($this->count);
     }
 
