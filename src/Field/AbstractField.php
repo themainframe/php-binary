@@ -22,12 +22,12 @@ abstract class AbstractField implements FieldInterface
     /**
      * @public Binary\AbstractValidator[] Validators attached to the field.
      */
-    private $validators = array();
+    protected $validators = array();
 
     /**
      * @public string The name of the field.
      */
-    public $name = '';
+    protected $name = '';
 
     /**
      * Set the name of this field.

@@ -27,7 +27,7 @@ class TextTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(4));
 
         $field->setSize($property);
-        $field->name = 'foo';
+        $field->setName('foo');
 
         $stream = $this->getMock('\Binary\Stream\StreamInterface');
         $stream->expects($this->any())

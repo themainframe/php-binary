@@ -32,7 +32,7 @@ class UnsignedInteger extends AbstractSizedField
 
         $unpacked = unpack('n', $data);
         $this->validate($unpacked[1]);
-        $result->setValue($this->name, $unpacked[1]);
+        $result->setValue($this->getName(), $unpacked[1]);
     }
 
     /**
@@ -40,7 +40,7 @@ class UnsignedInteger extends AbstractSizedField
      */
     public function write(StreamInterface $stream, DataSet $result)
     {
-        $bytes = $result->getValue($this->name);
+        $bytes = $result->getValue($this->getName());
         $stream->write(pack('c', intval($bytes)));
     }
 }

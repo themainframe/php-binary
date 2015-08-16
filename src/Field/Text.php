@@ -26,7 +26,7 @@ class Text extends AbstractSizedField
     {
         $bytes = $stream->read($this->size->get($result));
         $this->validate(strval($bytes));
-        $result->setValue($this->name, strval($bytes));
+        $result->setValue($this->getName(), strval($bytes));
     }
 
     /**
@@ -34,7 +34,7 @@ class Text extends AbstractSizedField
      */
     public function write(StreamInterface $stream, DataSet $result)
     {
-        $bytes = substr($result->getValue($this->name), 0, $this->size->get($result));
+        $bytes = substr($result->getValue($this->getName()), 0, $this->size->get($result));
         $stream->write($bytes);
     }
 }

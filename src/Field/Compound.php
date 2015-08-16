@@ -36,7 +36,7 @@ class Compound extends AbstractField
      */
     public function __construct()
     {
-        $this->name = new Property($this->name);
+        $this->name = new Property($this->getName());
         $this->count = new Property($this->count);
     }
 
@@ -69,7 +69,7 @@ class Compound extends AbstractField
      */
     public function read(StreamInterface $stream, DataSet $result)
     {
-        $result->push($this->name);
+        $result->push($this->getName());
         $count = isset($this->count) ? $this->count->get($result) : 1;
 
         // Read this compound field $count times
@@ -91,7 +91,7 @@ class Compound extends AbstractField
      */
     public function write(StreamInterface $stream, DataSet $result)
     {
-        $result->push($this->name);
+        $result->push($this->getName());
         $count = isset($this->count) ? $this->count->get($result) : 1;
 
         // Read this compound field $count times
