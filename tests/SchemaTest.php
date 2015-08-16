@@ -26,7 +26,6 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
         $schema->addField(new Text());
 
         // Inspect the schema
-        $this->assertArrayHasKey(0, $schema->fields);
-        $this->assertArrayHasKey(0, $schema->fields);
+        $this->assertArrayHasKey(0, $schema->getFields());
     }
 }
