@@ -22,14 +22,14 @@ use Binary\DataSet;
 class Compound extends AbstractField
 {
     /**
-     * @protected array The fields enclosed within this compound field.
+     * @protected FieldInterface[] The fields enclosed within this compound field.
      */
     protected $fields = array();
 
     /**
      * @protected PropertyInterface The number of times this field will be repeated.
      */
-    protected $count = 1;
+    protected $count;
 
     /**
      * Assign properties as actual properties.
