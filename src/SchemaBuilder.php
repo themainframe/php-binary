@@ -14,7 +14,6 @@ use Binary\Field\Compound;
 use Binary\Field\Property\Property;
 use Binary\Field\Property\Backreference;
 use Binary\Field\Property\PropertyInterface;
-use Binary\Stream\StreamInterface;
 
 /**
  * SchemaBuilder
