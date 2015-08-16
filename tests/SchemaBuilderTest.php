@@ -30,7 +30,8 @@ class SchemaBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $schema->getFields());
 
-        $field = $schema->getFields()[0];
+        $fields = $schema->getFields();
+        $field = $fields[0];
 
         $this->assertInstanceOf('\Binary\Field\FieldInterface', $field);
         $this->assertEquals('sometext', $field->getName());
