@@ -15,7 +15,7 @@ use Binary\DataSet;
 
 /**
  * Compound
- * A field that can comprise a number of fields and be repeated a number of times.
+ * A field that can comprise a number of fields.
  *
  * @since 1.0
  */
@@ -27,29 +27,12 @@ class Compound extends AbstractField
     protected $fields = array();
 
     /**
-     * @protected PropertyInterface The number of times this field will be repeated.
-     */
-    protected $count;
-
-    /**
      * Assign properties as actual properties.
      */
     public function __construct()
     {
         $this->name = $this->getName();
         $this->count = new Property($this->count);
-    }
-
-    /**
-     * @param PropertyInterface $count The number of times this compound field is repeated.
-     *
-     * @return $this
-     */
-    public function setCount(PropertyInterface $count)
-    {
-        $this->count = $count;
-
-        return $this;
     }
 
     /**
@@ -70,17 +53,9 @@ class Compound extends AbstractField
     public function read(StreamInterface $stream, DataSet $result)
     {
         $result->push($this->getName());
-        $count = isset($this->count) ? $this->count->get($result) : 1;
 
-        // Read this compound field $count times
-        for ($iteration = 0; $iteration < $count; $iteration ++) {
-            $result->push($iteration);
-
-            foreach ($this->fields as $field) {
-                $field->read($stream, $result);
-            }
-
-            $result->pop();
+        foreach ($this->fields as $field) {
+            $field->read($stream, $result);
         }
 
         $result->pop();
@@ -92,17 +67,9 @@ class Compound extends AbstractField
     public function write(StreamInterface $stream, DataSet $result)
     {
         $result->push($this->getName());
-        $count = isset($this->count) ? $this->count->get($result) : 1;
 
-        // Read this compound field $count times
-        for ($iteration = 0; $iteration < $count; $iteration ++) {
-            $result->push($iteration);
-
-            foreach ($this->fields as $field) {
-                $field->write($stream, $result);
-            }
-
-            $result->pop();
+        foreach ($this->fields as $field) {
+            $field->write($stream, $result);
         }
 
         $result->pop();
