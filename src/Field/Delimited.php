@@ -82,12 +82,14 @@ class Delimited extends AbstractField
     }
 
     /**
+     * Write the value for this field, then the delimiter at the end.
+     *
      * {@inheritdoc}
-     * @todo Implement
      */
     public function write(StreamInterface $stream, DataSet $result)
     {
-
+        $stream->write($result->getValue($this->getName()));
+        $stream->write($this->delimiter->get($result));
     }
 
     /**
