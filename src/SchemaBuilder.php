@@ -171,31 +171,4 @@ class SchemaBuilder
             $schema->addField($newField);
         }
     }
-
-    /**
-     * @param StreamInterface $stream The stream to parse.
-     * @param DataSet $set Optionally an existing data set to extend.
-     * @return array
-     */
-    public function readStream(StreamInterface $stream, DataSet $set = null)
-    {
-        $result = $set instanceof DataSet ? $set : new DataSet();
-
-        foreach ($this->fields as $field) {
-            $field->read($stream, $result);
-        }
-
-        return $result->getData();
-    }
-
-    /**
-     * @param StreamInterface $stream
-     * @param DataSet $data
-     */
-    public function writeStream(StreamInterface $stream, DataSet $data)
-    {
-        foreach ($this->fields as $field) {
-            $field->write($stream, $data);
-        }
-    }
 }
