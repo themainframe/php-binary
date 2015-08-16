@@ -26,27 +26,30 @@ use Binary\DataSet;
  */
 class Delimited extends AbstractField
 {
+    const DEFAULT_DELIMITER = "\n";
+    const DEFAULT_SEARCH_LENGTH = 128;
+
     /**
      * The sequence of bytes that marks the end of the field.
      *
      * @public \Binary\Field\Property\PropertyInterface
      */
-    protected $delimiter = "\n";
+    protected $delimiter;
 
     /**
      * The maximum number of bytes to search ahead looking for $delimiter.
      *
      * @public \Binary\Field\Property\PropertyInterface
      */
-    protected $searchLength = 128;
+    protected $searchLength;
 
     /**
      * Set up the field
      */
     public function __construct()
     {
-        $this->delimiter = new Property($this->delimiter);
-        $this->searchLength = new Property($this->searchLength);
+        $this->delimiter = new Property(self::DEFAULT_DELIMITER);
+        $this->searchLength = new Property(self::DEFAULT_SEARCH_LENGTH);
     }
 
     /**
