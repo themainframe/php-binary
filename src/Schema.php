@@ -26,7 +26,7 @@ class Schema
     /**
      * @var array The fields contained by this schema.
      */
-    public $fields = array();
+    private $fields = array();
 
     /**
      * Utility method to spawn a Field of a specific type.
@@ -121,5 +121,13 @@ class Schema
         foreach ($this->fields as $field) {
             $field->write($stream, $data);
         }
+    }
+
+    /**
+     * @return FieldInterface[]
+     */
+    public function getFields()
+    {
+        return $this->fields;
     }
 }
