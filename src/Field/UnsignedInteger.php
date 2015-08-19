@@ -40,7 +40,14 @@ class UnsignedInteger extends AbstractSizedField
      */
     public function write(StreamInterface $stream, DataSet $result)
     {
-        $bytes = $result->getValue($this->getName());
-        $stream->write(pack('c', intval($bytes)));
+        $dataSize = $this->size->get($result);
+
+        $bytes = $result->getValue($this->name);
+
+        for($i = 0; $i < $dataSize; $i++ ){
+            $unsignedByte = (($bytes >> (($dataSize - (1+ $i)) * 8)) & 0xFF); //big endian
+            $stream->write(pack('C', intval($unsignedByte) & 0xFF));
+            //$bytes = $bytes >> 8; //little Endian
+        }
     }
 }
