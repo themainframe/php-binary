@@ -12,12 +12,12 @@ use Binary\DataSet;
 use Binary\Stream\StreamInterface;
 
 /**
- * UnsignedInteger
+ * Float
  * Field.
  *
  * @since 1.0
  */
-class UnsignedInteger extends AbstractSizedField
+class Float extends AbstractSizedField
 {
     /**
      * {@inheritdoc}
@@ -30,9 +30,9 @@ class UnsignedInteger extends AbstractSizedField
             $data = str_pad($data, 2, "\0", STR_PAD_LEFT);
         }
 
-        $unpacked = unpack('n', $data);
+        $unpacked = unpack('f', $data);
         $this->validate($unpacked[1]);
-        $result->setValue($this->getName(), $unpacked[1]);
+        $result->setValue($this->name, $unpacked[1]);
     }
 
     /**
@@ -40,13 +40,8 @@ class UnsignedInteger extends AbstractSizedField
      */
     public function write(StreamInterface $stream, DataSet $result)
     {
-        $dataSize = $this->size->get($result);
-
+        //Writing floats currently untested
         $bytes = $result->getValue($this->name);
-
-        for ($i = 0; $i < $dataSize; $i++) {
-            $unsignedByte = (($bytes >> (($dataSize - (1 + $i)) * 8)) & 0xff);
-            $stream->write(pack('C', intval($unsignedByte) & 0xff));
-        }
+        $stream->write(pack('f', intval($bytes)));
     }
 }
