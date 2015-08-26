@@ -44,10 +44,9 @@ class UnsignedInteger extends AbstractSizedField
 
         $bytes = $result->getValue($this->name);
 
-        for($i = 0; $i < $dataSize; $i++ ){
-            $unsignedByte = (($bytes >> (($dataSize - (1+ $i)) * 8)) & 0xFF); //big endian
-            $stream->write(pack('C', intval($unsignedByte) & 0xFF));
-            //$bytes = $bytes >> 8; //little Endian
+        for ($i = 0; $i < $dataSize; $i++) {
+            $unsignedByte = (($bytes >> (($dataSize - (1 + $i)) * 8)) & 0xff);
+            $stream->write(pack('C', intval($unsignedByte) & 0xff));
         }
     }
 }
