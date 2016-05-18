@@ -12,12 +12,12 @@ use Binary\DataSet;
 use Binary\Stream\StreamInterface;
 
 /**
- * Float
+ * FloatingPoint.
  * Field.
  *
  * @since 1.0
  */
-class Float extends AbstractSizedField
+class FloatingPoint extends AbstractSizedField
 {
     /**
      * {@inheritdoc}
