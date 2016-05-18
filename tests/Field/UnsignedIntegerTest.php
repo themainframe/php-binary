@@ -8,80 +8,80 @@
  */
 namespace Binary;
 
-use Binary\Field\Text;
+use Binary\Field\UnsignedInteger;
 use Binary\Stream\StringStream;
 
 /**
- * TextTest
+ * UnsignedIntegerTest
  *
  * @since 1.0
  */
-class TextTest extends AbstractFieldTest
+class UnsignedIntegerTest extends AbstractFieldTest
 {
     /**
-     * Test a simple read.
+     * Tests a simple read.
      *
-     * @covers \Binary\Field\Text::read
+     * @covers \Binary\Field\UnsignedInteger::read
      */
     public function testSimpleRead()
     {
-        $field = new Text();
-        $field->setSize($this->getMockedProperty(4));
+        $field = new UnsignedInteger();
+        $field->setSize($this->getMockedProperty(1));
         $field->setName('foo');
 
-        $stream = $this->getMockedStringStream('barr');
+        $stream = $this->getMockedStringStream("\x03");
 
         $dataSet = $this->getMock('\Binary\DataSet');
         $dataSet->expects($this->once())
             ->method('setValue')
-            ->with($this->equalTo('foo'), $this->equalTo('barr'));
+            ->with($this->equalTo('foo'), $this->equalTo(3));
 
         $field->read($stream, $dataSet);
     }
 
     /**
-     * Test a simple write.
+     * Tests a simple write.
      *
-     * @covers \Binary\Field\Text::write
+     * @covers \Binary\Field\UnsignedInteger::write
      */
     public function testSimpleWrite()
     {
-        $field = new Text();
+        $field = new UnsignedInteger();
         $field->setName('foo');
-        $field->setSize($this->getMockedProperty(7));
+        $field->setSize($this->getMockedProperty(1));
 
         $dataSet = $this->getMock('\Binary\DataSet');
         $dataSet->expects($this->any())
             ->method('getValue')
             ->with($this->equalTo('foo'))
-            ->will($this->returnValue('abcdefg'));
+            ->will($this->returnValue(7));
 
         $stream = new StringStream('');
         $field->write($stream, $dataSet);
 
-        $this->assertEquals('abcdefg', $stream->getString());
+        $this->assertEquals("\x07", $stream->getString());
     }
 
     /**
-     * Test a write that is shorter than the available data.
+     * Tests a write where the field is smaller than the available data can be represented inside.
      *
-     * @covers \Binary\Field\Text::write
+     * @covers \Binary\Field\UnsignedInteger::write
      */
     public function testShortWrite()
     {
-        $field = new Text();
+        $field = new UnsignedInteger();
         $field->setName('foo');
-        $field->setSize($this->getMockedProperty(5));
+        $field->setSize($this->getMockedProperty(1));
 
         $dataSet = $this->getMock('\Binary\DataSet');
         $dataSet->expects($this->any())
             ->method('getValue')
             ->with($this->equalTo('foo'))
-            ->will($this->returnValue('abcdefg'));
+            ->will($this->returnValue(256));
 
         $stream = new StringStream('');
         $field->write($stream, $dataSet);
 
-        $this->assertEquals('abcde', $stream->getString());
+        $this->assertEquals("\x00", $stream->getString());
     }
 }
