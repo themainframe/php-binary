@@ -102,6 +102,50 @@ class DataSetTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Binary\DataSet::getValueByPath
+     */
+    public function testRelativeNestedGetValueByPath()
+    {
+        $dataSet = new DataSet();
+        $dataSet->push('level1');
+        $dataSet->setValue('foo', 'bar');
+        $dataSet->setValue('zoo', 'far');
+
+        $this->assertEquals('far', $dataSet->getValueByPath(array('zoo'), false));
+    }
+
+    /**
+     * @covers Binary\DataSet::getValueByPath
+     */
+    public function testRelativeParentNestedGetValueByPath()
+    {
+        $dataSet = new DataSet();
+        $dataSet->push('level1');
+        $dataSet->setValue('foo', 'bar');
+        $dataSet->push('level2');
+        $dataSet->setValue('zoo', 'far');
+
+        $this->assertEquals('bar', $dataSet->getValueByPath(array('..', 'foo'), false));
+    }
+
+    /**
+     * @covers Binary\DataSet::getValueByPath
+     */
+    public function testRelativeMultipleParentNestedGetValueByPath()
+    {
+        $dataSet = new DataSet();
+        $dataSet->push('level1');
+        $dataSet->setValue('foo', 'bar');
+        $dataSet->push('level2');
+        $dataSet->setValue('zoo', 'far');
+        $dataSet->push('level3');
+        $dataSet->setValue('fur', 'aff');
+
+        $this->assertEquals('aff', $dataSet->getValueByPath(array('fur'), false));
+        $this->assertEquals('bar', $dataSet->getValueByPath(array('..', '..', 'foo'), false));
+    }
+
+    /**
      * @covers Binary\DataSet::setValueByPath
      */
     public function testNestedSetValueByPath()

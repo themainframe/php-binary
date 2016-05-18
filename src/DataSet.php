@@ -123,16 +123,21 @@ class DataSet
     {
         $child = $this->data;
 
+        // If it's not an absolute path, add the current path so far to the requested path
         if (!$absolute) {
-            foreach ($this->currentPath as $part) {
-                if (isset($child[$part])) {
-                    $child = $child[$part];
+            $newPath = $this->currentPath;
+            foreach ($path as $part) {
+                // Handle parent traversals
+                if ('..' === $part) {
+                    array_pop($newPath);
                 } else {
-                    return null;
+                    $newPath[] = $part;
                 }
             }
+            $path = $newPath;
         }
 
+        // Follow the entire path to reach the desired value
         foreach ($path as $part) {
             if (isset($child[$part])) {
                 $child = $child[$part];
