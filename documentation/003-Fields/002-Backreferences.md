@@ -34,5 +34,5 @@ Backreferences are assumed to be relative to the current field. Absolute backref
 
 Relative backreferences may refer to parent fields, for example, a field `foo` nested inside two compound fields `comp_a` and `comp_b` could access a sibling field of `comp_b` - `bar` -  with the backreference `../bar`:
 
-    * `comp_a` -----> * `comp_b` -----> * `foo`
-                      * `bar`
+    * comp_a -----> * comp_b -----> * foo
+                    * bar
